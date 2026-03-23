@@ -39,8 +39,8 @@ Make sure you have the following installed:
 ### 1. Clone the repo
 
 ```bash
-git clone <your-repo-url>
-cd <repo-folder>
+git clone https://github.com/tawona-swe/workerday-helper-app.git
+cd workerday-helper-app
 ```
 
 ### 2. Backend
