@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { box-sizing: border-box; }
+
+html, body {
+  font-family: 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+/* Wallpaper fixed behind everything */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('/images/bg_wallpaper.jpg') center center / cover no-repeat;
+  z-index: -1;
+}
+
+/* Frosted overlay */
+.app-bg {
+  background: rgba(215, 215, 220, 0.42);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  min-height: 100vh;
+}
+
+/* Sidebar & topbar */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.52);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Cards */
+.glass-card {
+  background: rgba(255, 255, 255, 0.62);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+}
+
+/* Accent color */
+.accent { color: #6366f1; }
+.accent-bg { background: #6366f1; }
+.accent-bg-soft { background: rgba(99, 102, 241, 0.10); }
+.accent-border { border-color: #6366f1; }
+
+/* Sidebar nav */
+.nav-item { color: #374151; }
+.nav-item:not(.active-nav):hover {
+  background: rgba(255, 255, 255, 0.65);
+  color: #111827;
+}
+.active-nav {
+  background: #111827 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+.active-nav:hover { background: #111827 !important; }
+
+/* Scrollbar */
+.scrollable {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,0.15) transparent;
+}
+.scrollable::-webkit-scrollbar { width: 5px; }
+.scrollable::-webkit-scrollbar-track { background: transparent; margin: 8px 0; }
+.scrollable::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.15);
+  border-radius: 99px;
+}
+.scrollable::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.25); }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }

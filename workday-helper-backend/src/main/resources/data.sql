@@ -1,0 +1,1 @@
+-- No seed data — all records are user-scoped and created via the API

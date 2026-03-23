@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>WorkdayHelper</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    #app-splash {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #0f0f13;
+      z-index: 99999;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    #app-splash.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .splash-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: #6366f1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      box-shadow: 0 0 40px rgba(99,102,241,0.5);
+      animation: splash-pulse 1.6s ease-in-out infinite;
+    }
+    .splash-logo span {
+      color: #fff;
+      font-size: 24px;
+      font-weight: 700;
+      font-family: system-ui, sans-serif;
+    }
+    .splash-name {
+      color: #fff;
+      font-size: 18px;
+      font-weight: 700;
+      font-family: system-ui, sans-serif;
+      letter-spacing: -0.3px;
+      margin-bottom: 32px;
+    }
+    .splash-dots {
+      display: flex;
+      gap: 8px;
+    }
+    .splash-dots span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #6366f1;
+      animation: splash-bounce 1.2s ease-in-out infinite;
+    }
+    .splash-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .splash-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes splash-pulse {
+      0%, 100% { box-shadow: 0 0 30px rgba(99,102,241,0.4); }
+      50%       { box-shadow: 0 0 60px rgba(99,102,241,0.8); }
+    }
+    @keyframes splash-bounce {
+      0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+      40%           { transform: scale(1);   opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Splash screen — hidden once Angular bootstraps -->
+  <div id="app-splash">
+    <div class="splash-logo"><span>W</span></div>
+    <p class="splash-name">WorkdayHelper</p>
+    <div class="splash-dots">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <app-root></app-root>
+
+  <script>
+    // Remove splash as soon as Angular renders app-root content
+    const observer = new MutationObserver(() => {
+      const root = document.querySelector('app-root');
+      if (root && root.children.length > 0) {
+        const splash = document.getElementById('app-splash');
+        if (splash) {
+          splash.classList.add('hidden');
+          setTimeout(() => splash.remove(), 450);
+        }
+        observer.disconnect();
+      }
+    });
+    observer.observe(document.querySelector('app-root') || document.body, {
+      childList: true, subtree: true
+    });
+  </script>
+</body>
+</html>
