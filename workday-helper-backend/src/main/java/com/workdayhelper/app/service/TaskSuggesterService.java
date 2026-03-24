@@ -11,14 +11,17 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TaskSuggesterService {
 
     private final TaskRepository taskRepository;
+    private final LlmClient llmClient;
 
-    public TaskSuggesterService(TaskRepository taskRepository) {
+    public TaskSuggesterService(TaskRepository taskRepository, LlmClient llmClient) {
         this.taskRepository = taskRepository;
+        this.llmClient = llmClient;
     }
 
     public List<TaskSuggestion> getDailySuggestions(User user, LocalTime localTime) {
@@ -65,6 +68,7 @@ public class TaskSuggesterService {
             }
 
             String rationale = buildRationale(task, st.score(), now);
+            String aiAdvice = generateAdvice(task);
             suggestions.add(new TaskSuggestion(
                     task.getId(),
                     task.getTitle(),
@@ -72,7 +76,8 @@ public class TaskSuggesterService {
                     start,
                     end,
                     st.score(),
-                    rationale
+                    rationale,
+                    aiAdvice
             ));
         }
 
@@ -129,6 +134,19 @@ public class TaskSuggesterService {
             sb.append(", short task");
         }
         return sb.toString();
+    }
+
+    private String generateAdvice(Task task) {
+        try {
+            String system = "You are a productivity coach. Give a single concise tip (2-3 sentences max) on how to best tackle the given task. Be practical and specific.";
+            List<Map<String, String>> messages = List.of(
+                    Map.of("role", "user", "content", "Task: " + task.getTitle()
+                            + (task.getPriority() != null ? " (Priority: " + task.getPriority() + ")" : ""))
+            );
+            return llmClient.chat(system, messages);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private record ScoredTask(Task task, double score) {}

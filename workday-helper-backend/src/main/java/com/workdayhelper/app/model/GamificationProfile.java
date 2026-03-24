@@ -1,7 +1,9 @@
 package com.workdayhelper.app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,11 +19,12 @@ public class GamificationProfile {
     private int longestStreak;
     private LocalDate lastStreakDate;
 
-    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Achievement> achievements;
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Achievement> achievements = new ArrayList<>();
 
     @OneToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     public GamificationProfile() {}

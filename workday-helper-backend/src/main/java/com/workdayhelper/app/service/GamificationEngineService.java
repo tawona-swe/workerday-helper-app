@@ -35,6 +35,7 @@ public class GamificationEngineService {
             profile.setTotalPoints(0);
             profile.setCurrentStreak(0);
             profile.setLongestStreak(0);
+            profile.setAchievements(new java.util.ArrayList<>());
             return gamificationProfileRepository.save(profile);
         });
     }

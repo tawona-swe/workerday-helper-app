@@ -1,14 +1,15 @@
-import { Component, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { Component, HostListener, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { LucideAngularModule, Eye, PersonStanding, Droplets, Target, Settings, User, LogOut } from 'lucide-angular';
 import { AuthService } from '../services/auth';
+import { NotificationService } from '../services/notification';
 
 @Component({
   selector: 'app-layout',
   imports: [RouterOutlet, RouterLink, RouterLinkActive, LucideAngularModule],
   templateUrl: './app-layout.html'
 })
-export class AppLayoutComponent {
+export class AppLayoutComponent implements OnInit {
   readonly Eye = Eye;
   readonly PersonStanding = PersonStanding;
   readonly Droplets = Droplets;
@@ -27,7 +28,12 @@ export class AppLayoutComponent {
     weekday: 'long', month: 'long', year: 'numeric'
   });
 
-  constructor(public auth: AuthService) {}
+  constructor(public auth: AuthService, private notifications: NotificationService) {}
+
+  ngOnInit(): void {
+    this.notifications.connect();
+    this.notifications.requestNotificationPermission();
+  }
 
   userInitial(): string {
     const name = this.auth.currentUser()?.name;

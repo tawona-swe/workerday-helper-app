@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { LucideAngularModule, Eye, PersonStanding, Droplets, Dumbbell, Bell, Trash2, LucideIconData } from 'lucide-angular';
 import { ReminderService } from '../../services/reminder';
+import { NotificationService } from '../../services/notification';
 import { Reminder } from '../../models/reminder.model';
 
 @Component({
@@ -36,12 +37,14 @@ export class RemindersComponent implements OnInit, OnDestroy {
     EYE_BREAK: 'Eye Break', POSTURE: 'Posture Check', HYDRATION: 'Hydration', STRETCH: 'Stretch', CUSTOM: 'Custom'
   };
 
-  constructor(private reminderService: ReminderService) {}
+  constructor(private reminderService: ReminderService, private notificationService: NotificationService) {}
 
   ngOnInit(): void {
     this.load();
     this.sub = this.reminderService.reminderTriggered$.subscribe(r => {
       this.activeAlert = r;
+      this.notificationService.playBeep();
+      this.notificationService.showBrowserNotification(r.message);
       setTimeout(() => this.activeAlert = null, 8000);
     });
   }
