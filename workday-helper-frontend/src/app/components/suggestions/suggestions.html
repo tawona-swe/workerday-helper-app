@@ -1,0 +1,37 @@
+<div class="glass-panel rounded-3xl p-6 space-y-6">
+  <h2 class="text-sm font-bold text-gray-900">Suggestions</h2>
+
+  <!-- Daily suggestions -->
+  <div>
+    <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Daily</p>
+    @if (daily.length === 0) {
+      <p class="text-xs text-gray-400">No daily suggestions available.</p>
+    }
+    <div class="space-y-2">
+      @for (s of daily; track s.taskId) {
+        <div class="bg-white/70 rounded-2xl p-3 space-y-1">
+          <p class="text-xs font-bold text-gray-900">{{ s.title }}</p>
+          <p class="text-xs text-gray-500">{{ s.suggestedStartTime }} – {{ s.suggestedEndTime }}</p>
+          <p class="text-xs text-gray-600">{{ s.rationale }}</p>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Context-aware suggestions -->
+  <div>
+    <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Context-Aware</p>
+    @if (context.length === 0) {
+      <p class="text-xs text-gray-400">No context suggestions available.</p>
+    }
+    <div class="space-y-2">
+      @for (s of context; track s.taskId) {
+        <div class="bg-white/70 rounded-2xl p-3 space-y-1">
+          <p class="text-xs font-bold text-gray-900">{{ s.title }}</p>
+          <p class="text-xs text-gray-500">{{ s.suggestedStartTime }} – {{ s.suggestedEndTime }}</p>
+          <p class="text-xs text-gray-600">{{ s.rationale }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</div>

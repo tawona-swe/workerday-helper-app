@@ -3,6 +3,7 @@ package com.workdayhelper.app.service;
 import com.workdayhelper.app.model.Task;
 import com.workdayhelper.app.model.User;
 import com.workdayhelper.app.repository.TaskRepository;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,8 +15,12 @@ import java.util.Map;
 public class TaskService {
 
     private final TaskRepository repo;
+    private final GamificationEngineService gamificationEngineService;
 
-    public TaskService(TaskRepository repo) { this.repo = repo; }
+    public TaskService(TaskRepository repo, @Lazy GamificationEngineService gamificationEngineService) {
+        this.repo = repo;
+        this.gamificationEngineService = gamificationEngineService;
+    }
 
     public List<Task> getAll(User user) {
         return repo.findByUser(user);
@@ -37,12 +42,17 @@ public class TaskService {
 
     public Task update(Long id, Task updated, User user) {
         Task task = getById(id, user);
+        boolean wasCompleted = task.isCompleted();
         task.setTitle(updated.getTitle());
         task.setDescription(updated.getDescription());
         task.setCompleted(updated.isCompleted());
         task.setPriority(updated.getPriority());
         task.setDueDate(updated.getDueDate());
-        return repo.save(task);
+        Task saved = repo.save(task);
+        if (!wasCompleted && saved.isCompleted()) {
+            gamificationEngineService.onTaskCompleted(user);
+        }
+        return saved;
     }
 
     public void delete(Long id, User user) {

@@ -20,6 +20,8 @@ public class Task {
     private String priority;
     private LocalDateTime dueDate;
     private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(columnDefinition = "int default 30")
+    private int estimatedDurationMinutes = 30;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -42,6 +44,8 @@ public class Task {
     public void setDueDate(LocalDateTime dueDate) { this.dueDate = dueDate; }
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public int getEstimatedDurationMinutes() { return estimatedDurationMinutes; }
+    public void setEstimatedDurationMinutes(int estimatedDurationMinutes) { this.estimatedDurationMinutes = estimatedDurationMinutes; }
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
 }

@@ -1,0 +1,38 @@
+<div class="glass-panel rounded-3xl p-6 h-full flex flex-col gap-4">
+  <h2 class="text-sm font-bold text-gray-900">AI Assistant</h2>
+
+  <!-- Message history -->
+  <div class="flex-1 overflow-y-auto space-y-3 min-h-0">
+    @for (msg of messages; track $index) {
+      <div [class]="msg.role === 'user' ? 'flex justify-end' : 'flex justify-start'">
+        <div [class]="msg.role === 'user'
+          ? 'accent-bg text-white text-xs px-4 py-2 rounded-2xl max-w-xs'
+          : 'bg-white/70 text-gray-800 text-xs px-4 py-2 rounded-2xl max-w-xs'">
+          {{ msg.content }}
+        </div>
+      </div>
+    }
+    @if (messages.length === 0) {
+      <p class="text-xs text-gray-400 text-center mt-8">Start a conversation with your AI assistant.</p>
+    }
+  </div>
+
+  <!-- Input area -->
+  <div class="flex-shrink-0">
+    <div class="flex gap-2">
+      <textarea
+        [(ngModel)]="inputText"
+        [maxlength]="maxLength"
+        (keydown.enter)="$event.preventDefault(); send()"
+        placeholder="Type a message..."
+        rows="2"
+        class="flex-1 text-xs rounded-2xl border border-black/10 bg-white/70 px-4 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-300">
+      </textarea>
+      <button (click)="send()"
+        class="accent-bg text-white text-xs font-bold px-4 py-2 rounded-2xl hover:opacity-90 transition-opacity self-end">
+        Send
+      </button>
+    </div>
+    <p class="text-xs text-gray-400 mt-1 text-right">{{ charsRemaining }} chars remaining</p>
+  </div>
+</div>
