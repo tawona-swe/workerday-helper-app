@@ -56,20 +56,23 @@ export class RemindersComponent implements OnInit, OnDestroy {
   load(): void {
     this.reminderService.getAll().subscribe(r => {
       this.reminders = r;
-      this.reminderService.startTimers(r);
     });
   }
 
   save(): void {
     if (!this.newReminder.message.trim()) return;
     this.reminderService.create(this.newReminder).subscribe(() => {
+      this.reminderService.refreshTimers();
       this.load(); this.cancel();
     });
   }
 
   toggle(reminder: Reminder): void {
     const updated = { ...reminder, active: !reminder.active };
-    this.reminderService.update(updated).subscribe(() => this.load());
+    this.reminderService.update(updated).subscribe(() => {
+      this.reminderService.refreshTimers();
+      this.load();
+    });
   }
 
   delete(id: number): void {

@@ -128,64 +128,21 @@
 
         <!-- Search -->
         <div class="relative search-panel">
-          <button (click)="searchOpen = !searchOpen; searchOpen && focusSearch()"
+          <button #searchBtn (click)="toggleSearch($event)"
                   class="w-8 h-8 rounded-xl bg-white/70 flex items-center justify-center text-gray-600 hover:bg-white transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
           </button>
-          @if (searchOpen) {
-            <div class="absolute right-0 top-10 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 p-3 z-50">
-              <input #searchInput [(ngModel)]="searchQuery" (input)="onSearch()"
-                     placeholder="Search tasks..."
-                     class="w-full text-xs bg-gray-50 rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-300 placeholder-gray-400" />
-              @if (searchResults.length > 0) {
-                <div class="mt-2 space-y-1 max-h-48 overflow-y-auto">
-                  @for (t of searchResults; track t.id) {
-                    <a routerLink="/tasks" (click)="searchOpen = false; searchQuery = ''; searchResults = []"
-                       class="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-50 cursor-pointer">
-                      <span class="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                            [style.background]="t.priority === 'HIGH' ? '#ef4444' : t.priority === 'MEDIUM' ? '#f59e0b' : '#6b7280'"></span>
-                      <span class="text-xs text-gray-800 truncate">{{ t.title }}</span>
-                    </a>
-                  }
-                </div>
-              } @else if (searchQuery.length > 1) {
-                <p class="text-xs text-gray-400 text-center py-2 mt-1">No tasks found</p>
-              }
-            </div>
-          }
         </div>
 
         <!-- Notifications bell -->
         <div class="relative notif-panel">
-          <button (click)="notifOpen = !notifOpen; unreadCount = 0"
+          <button #notifBtn (click)="toggleNotif($event)"
                   class="w-8 h-8 rounded-xl bg-white/70 flex items-center justify-center text-gray-600 hover:bg-white transition-colors relative">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
             @if (unreadCount > 0) {
               <span class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center">{{ unreadCount }}</span>
             }
           </button>
-          @if (notifOpen) {
-            <div class="absolute right-0 top-10 w-72 bg-white rounded-2xl shadow-xl border border-gray-100 z-50 overflow-hidden">
-              <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-                <p class="text-xs font-bold text-gray-900">Notifications</p>
-                @if (notifList.length > 0) {
-                  <button (click)="clearNotifs()" class="text-xs text-indigo-500 font-semibold hover:text-indigo-700">Clear all</button>
-                }
-              </div>
-              @if (notifList.length === 0) {
-                <p class="text-xs text-gray-400 text-center py-6">You're all caught up 🎉</p>
-              } @else {
-                <div class="max-h-64 overflow-y-auto divide-y divide-gray-50">
-                  @for (n of notifList; track $index) {
-                    <div class="px-4 py-3 hover:bg-gray-50 transition-colors">
-                      <p class="text-xs text-gray-800 leading-relaxed">{{ n.message }}</p>
-                      <p class="text-[10px] text-gray-400 mt-0.5">{{ n.time }}</p>
-                    </div>
-                  }
-                </div>
-              }
-            </div>
-          }
         </div>
 
         <!-- Avatar + dropdown trigger -->
@@ -292,7 +249,7 @@
 
   <!-- FAB -->
   <button (click)="toggleChat()"
-          class="w-20 h-20 accent-bg rounded-2xl shadow-xl flex items-center justify-center text-white hover:opacity-90 hover:scale-105 transition-all">
+          class="w-14 h-14 accent-bg rounded-2xl shadow-xl flex items-center justify-center text-white hover:opacity-90 hover:scale-105 transition-all">
     @if (chatOpen) {
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -305,6 +262,57 @@
     }
   </button>
 </div>
+}
+
+<!-- Search portal -->
+@if (searchOpen) {
+  <div class="search-portal fixed w-64 rounded-2xl shadow-2xl border border-white/60 p-3"
+       style="background:#fff; backdrop-filter:none; z-index:99999;"
+       [style.top.px]="searchTop" [style.right]="searchRight">
+    <input #searchInput [(ngModel)]="searchQuery" (input)="onSearch()"
+           placeholder="Search tasks..."
+           class="w-full text-xs bg-gray-50 rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-300 placeholder-gray-400" />
+    @if (searchResults.length > 0) {
+      <div class="mt-2 space-y-1 max-h-48 overflow-y-auto">
+        @for (t of searchResults; track t.id) {
+          <a routerLink="/tasks" (click)="searchOpen = false; searchQuery = ''; searchResults = []"
+             class="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-gray-50 cursor-pointer">
+            <span class="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                  [style.background]="t.priority === 'HIGH' ? '#ef4444' : t.priority === 'MEDIUM' ? '#f59e0b' : '#6b7280'"></span>
+            <span class="text-xs text-gray-800 truncate">{{ t.title }}</span>
+          </a>
+        }
+      </div>
+    } @else if (searchQuery.length > 1) {
+      <p class="text-xs text-gray-400 text-center py-2 mt-1">No tasks found</p>
+    }
+  </div>
+}
+
+<!-- Notifications portal -->
+@if (notifOpen) {
+  <div class="notif-portal fixed w-72 rounded-2xl shadow-2xl border border-white/60 overflow-hidden"
+       style="background:#fff; backdrop-filter:none; z-index:99999;"
+       [style.top.px]="notifTop" [style.right]="notifRight">
+    <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+      <p class="text-xs font-bold text-gray-900">Notifications</p>
+      @if (notifList.length > 0) {
+        <button (click)="clearNotifs()" class="text-xs text-indigo-500 font-semibold hover:text-indigo-700">Clear all</button>
+      }
+    </div>
+    @if (notifList.length === 0) {
+      <p class="text-xs text-gray-400 text-center py-6">You're all caught up 🎉</p>
+    } @else {
+      <div class="max-h-64 overflow-y-auto divide-y divide-gray-50">
+        @for (n of notifList; track $index) {
+          <div class="px-4 py-3 hover:bg-gray-50 transition-colors">
+            <p class="text-xs text-gray-800 leading-relaxed">{{ n.message }}</p>
+            <p class="text-[10px] text-gray-400 mt-0.5">{{ n.time }}</p>
+          </div>
+        }
+      </div>
+    }
+  </div>
 }
 
 <!-- Dropdown portal — outside all backdrop-filter containers so z-index works correctly -->

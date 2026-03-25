@@ -7,6 +7,7 @@ import { LucideAngularModule, Eye, PersonStanding, Droplets, Target, Settings, U
 import { AuthService } from '../services/auth';
 import { NotificationService } from '../services/notification';
 import { TaskService } from '../services/task';
+import { ReminderService } from '../services/reminder';
 import { Task } from '../models/task.model';
 
 interface ChatMsg { role: string; content: string; }
@@ -34,12 +35,16 @@ export class AppLayoutComponent implements OnInit, AfterViewChecked {
   searchOpen = false;
   searchQuery = '';
   searchResults: Task[] = [];
+  searchTop = 0;
+  searchRight = '0px';
   private allTasks: Task[] = [];
 
   // Notifications
   notifOpen = false;
   notifList: NotifItem[] = [];
   unreadCount = 0;
+  notifTop = 0;
+  notifRight = '0px';
 
   // Mini chat popup
   chatOpen = false;
@@ -51,6 +56,8 @@ export class AppLayoutComponent implements OnInit, AfterViewChecked {
   @ViewChild('avatarBtn') avatarBtn!: ElementRef<HTMLButtonElement>;
   @ViewChild('chatBody') chatBody!: ElementRef<HTMLDivElement>;
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('searchBtn') searchBtn!: ElementRef<HTMLButtonElement>;
+  @ViewChild('notifBtn') notifBtn!: ElementRef<HTMLButtonElement>;
 
   readonly todayLabel = new Date().toLocaleDateString('en-US', {
     weekday: 'long', month: 'long', year: 'numeric'
@@ -61,6 +68,7 @@ export class AppLayoutComponent implements OnInit, AfterViewChecked {
     public notifications: NotificationService,
     private http: HttpClient,
     private taskService: TaskService,
+    private reminderService: ReminderService,
     public router: Router
   ) {}
 
@@ -68,6 +76,13 @@ export class AppLayoutComponent implements OnInit, AfterViewChecked {
     this.notifications.connect();
     this.notifications.requestNotificationPermission();
     this.taskService.getAll().subscribe(t => this.allTasks = t);
+    // Start reminder timers globally — fires notifications from any page
+    this.reminderService.initTimers();
+    this.reminderService.reminderTriggered$.subscribe(r => {
+      this.notifications.showToast(r.message);
+      this.notifications.playBeep();
+      this.notifications.showBrowserNotification(r.message);
+    });
     this.notifications.onNotification = (msg: string) => {
       this.notifList.unshift({ message: msg, time: new Date().toLocaleTimeString() });
       this.unreadCount++;
@@ -103,10 +118,33 @@ export class AppLayoutComponent implements OnInit, AfterViewChecked {
     setTimeout(() => this.searchInput?.nativeElement?.focus(), 50);
   }
 
+  toggleSearch(event: MouseEvent): void {
+    this.searchOpen = !this.searchOpen;
+    if (this.searchOpen) {
+      const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+      this.searchTop = rect.bottom + 8;
+      this.searchRight = `${window.innerWidth - rect.right}px`;
+      this.focusSearch();
+    } else {
+      this.searchQuery = '';
+      this.searchResults = [];
+    }
+  }
+
   // Notifications
   clearNotifs(): void {
     this.notifList = [];
     this.unreadCount = 0;
+  }
+
+  toggleNotif(event: MouseEvent): void {
+    this.notifOpen = !this.notifOpen;
+    this.unreadCount = 0;
+    if (this.notifOpen) {
+      const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+      this.notifTop = rect.bottom + 8;
+      this.notifRight = `${window.innerWidth - rect.right}px`;
+    }
   }
 
   // Chat popup
@@ -159,7 +197,9 @@ export class AppLayoutComponent implements OnInit, AfterViewChecked {
   onDocClick(e: MouseEvent) {
     const target = e.target as HTMLElement;
     if (!target.closest('.avatar-dropdown')) this.dropdownOpen = false;
-    if (!target.closest('.search-panel')) { this.searchOpen = false; this.searchResults = []; }
-    if (!target.closest('.notif-panel')) this.notifOpen = false;
+    if (!target.closest('.search-panel') && !target.closest('.search-portal')) {
+      this.searchOpen = false; this.searchResults = []; this.searchQuery = '';
+    }
+    if (!target.closest('.notif-panel') && !target.closest('.notif-portal')) this.notifOpen = false;
   }
 }

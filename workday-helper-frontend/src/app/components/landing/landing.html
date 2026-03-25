@@ -1,12 +1,15 @@
 <!-- Landing Page -->
-<div class="min-h-screen flex flex-col" style="background: linear-gradient(135deg, #f0f4ff 0%, #faf5ff 50%, #f0fdf4 100%);">
+<div class="relative min-h-screen flex flex-col overflow-hidden" style="background: linear-gradient(135deg, #f0f4ff 0%, #faf5ff 50%, #f0fdf4 100%);">
+
+  <!-- Grid Pattern — full page -->
+  <div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(#6366f1 0.5px, transparent 0.5px), linear-gradient(90deg, #6366f1 0.5px, transparent 0.5px); background-size: 80px 80px; opacity: 0.04;"></div>
 
   <!-- Nav -->
   <nav class="flex items-center justify-between px-8 py-5 max-w-6xl mx-auto w-full">
     <img src="/images/full_logo.png" alt="WorkdayHelper" class="h-20 object-contain" />
     <div class="flex items-center gap-3">
       <a routerLink="/login"
-         class="text-sm font-semibold text-gray-600 hover:text-gray-900 px-4 py-2 rounded-xl hover:bg-white/60 transition-all">
+         class="text-sm font-semibold text-gray-600 hover:text-gray-900 border border-indigo-100 px-4 py-2 rounded-xl hover:bg-white/60 transition-all">
         Sign in
       </a>
       <a routerLink="/register"
@@ -18,7 +21,7 @@
   </nav>
 
   <!-- Hero -->
-  <main class="flex-1 flex flex-col items-center justify-center text-center px-6 py-16 max-w-4xl mx-auto w-full">
+  <main class="relative flex-1 flex flex-col items-center justify-center text-center px-6 py-16 max-w-4xl mx-auto w-full overflow-hidden">
 
     <!-- Badge -->
     <div class="inline-flex items-center gap-2 bg-white/80 border border-indigo-100 text-indigo-600 text-xs font-bold px-4 py-1.5 rounded-full mb-8 shadow-sm">
@@ -53,22 +56,22 @@
 
     <!-- Feature cards -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-3xl">
-      <div class="bg-white/70 backdrop-blur rounded-2xl p-5 text-left border border-white/80 shadow-sm">
+      <div class="bg-white/70 backdrop-blur rounded-2xl p-5 text-left border border-white/80 shadow-sm hover:shadow-md hover:border-indigo-200 hover:bg-white hover:-translate-y-1 transition-all duration-200 cursor-default">
         <div class="text-2xl mb-2">🤖</div>
         <p class="text-sm font-bold text-gray-900 mb-1">AI Assistant</p>
         <p class="text-xs text-gray-500">Chat with your personal productivity coach</p>
       </div>
-      <div class="bg-white/70 backdrop-blur rounded-2xl p-5 text-left border border-white/80 shadow-sm">
+      <div class="bg-white/70 backdrop-blur rounded-2xl p-5 text-left border border-white/80 shadow-sm hover:shadow-md hover:border-indigo-200 hover:bg-white hover:-translate-y-1 transition-all duration-200 cursor-default">
         <div class="text-2xl mb-2">🎯</div>
         <p class="text-sm font-bold text-gray-900 mb-1">Smart Focus</p>
         <p class="text-xs text-gray-500">Timed sessions with task-linked countdowns</p>
       </div>
-      <div class="bg-white/70 backdrop-blur rounded-2xl p-5 text-left border border-white/80 shadow-sm">
+      <div class="bg-white/70 backdrop-blur rounded-2xl p-5 text-left border border-white/80 shadow-sm hover:shadow-md hover:border-indigo-200 hover:bg-white hover:-translate-y-1 transition-all duration-200 cursor-default">
         <div class="text-2xl mb-2">💡</div>
         <p class="text-sm font-bold text-gray-900 mb-1">AI Suggestions</p>
         <p class="text-xs text-gray-500">Ranked tasks with how-to-tackle advice</p>
       </div>
-      <div class="bg-white/70 backdrop-blur rounded-2xl p-5 text-left border border-white/80 shadow-sm">
+      <div class="bg-white/70 backdrop-blur rounded-2xl p-5 text-left border border-white/80 shadow-sm hover:shadow-md hover:border-indigo-200 hover:bg-white hover:-translate-y-1 transition-all duration-200 cursor-default">
         <div class="text-2xl mb-2">🏆</div>
         <p class="text-sm font-bold text-gray-900 mb-1">Gamification</p>
         <p class="text-xs text-gray-500">Earn points and streaks as you work</p>
@@ -78,6 +81,28 @@
 
   <!-- Footer -->
   <footer class="text-center py-6 text-xs text-gray-400">
-    © 2026 WorkdayHelper · Built for productive humans
+    © 2026 WorkdayHelper · Built for productive humans · <a href="https://tawonarwatida.co.zw">By Tawona Rwatida</a>
   </footer>
+
+  <!-- Smiley FAB -->
+  <div class="fixed bottom-6 right-6 z-50 select-none cursor-default"
+       style="filter: drop-shadow(0 8px 24px rgba(99,102,241,0.35));">
+    <svg width="64" height="64" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="40" cy="40" r="38" fill="url(#faceGrad2)" stroke="white" stroke-width="2.5"/>
+      <circle id="left-eye" cx="27" cy="33" r="9" fill="white" opacity="0.95"/>
+      <circle id="right-eye" cx="53" cy="33" r="9" fill="white" opacity="0.95"/>
+      <circle cx="27" cy="33" r="4.5" fill="#1e1b4b" [style.transform]="leftEyeStyle" style="transform-origin: 27px 33px; transition: transform 0.05s linear;"/>
+      <circle cx="53" cy="33" r="4.5" fill="#1e1b4b" [style.transform]="rightEyeStyle" style="transform-origin: 53px 33px; transition: transform 0.05s linear;"/>
+      <path d="M26 52 Q40 64 54 52" stroke="white" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+      <circle cx="18" cy="50" r="7" fill="rgba(255,150,150,0.35)"/>
+      <circle cx="62" cy="50" r="7" fill="rgba(255,150,150,0.35)"/>
+      <defs>
+        <radialGradient id="faceGrad2" cx="40%" cy="35%" r="60%">
+          <stop offset="0%" stop-color="#818cf8"/>
+          <stop offset="100%" stop-color="#6366f1"/>
+        </radialGradient>
+      </defs>
+    </svg>
+  </div>
+
 </div>

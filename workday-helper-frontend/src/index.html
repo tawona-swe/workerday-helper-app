@@ -2,10 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Workday Helper</title>
+  <title>WorkdayHelper — AI-Powered Productivity Platform</title>
   <base href="/">
+
+  <!-- Primary Meta -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="WorkdayHelper is an AI-powered productivity platform with smart task suggestions, focus sessions, health reminders, and gamification to help you work smarter every day.">
+  <meta name="keywords" content="productivity app, AI assistant, task manager, focus timer, work smarter, pomodoro, smart reminders, gamification, workday planner">
+  <meta name="author" content="WorkdayHelper">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://workdayhelper.tawonarwatida.co.zw/">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://workdayhelper.tawonarwatida.co.zw/">
+  <meta property="og:title" content="WorkdayHelper — AI-Powered Productivity Platform">
+  <meta property="og:description" content="Manage your workday intelligently with AI chat, smart task suggestions, focus sessions, and health reminders.">
+  <meta property="og:image" content="https://workdayhelper.tawonarwatida.co.zw/images/full_logo.png">
+  <meta property="og:site_name" content="WorkdayHelper">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://workdayhelper.tawonarwatida.co.zw/">
+  <meta name="twitter:title" content="WorkdayHelper — AI-Powered Productivity Platform">
+  <meta name="twitter:description" content="Manage your workday intelligently with AI chat, smart task suggestions, focus sessions, and health reminders.">
+  <meta name="twitter:image" content="https://workdayhelper.tawonarwatida.co.zw/images/full_logo.png">
+
+  <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="/images/logo.png">
+
+  <!-- Theme color -->
+  <meta name="theme-color" content="#6366f1">
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "WorkdayHelper",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Web",
+    "description": "AI-powered productivity platform with smart task suggestions, focus sessions, health reminders, and gamification.",
+    "url": "https://workdayhelper.tawonarwatida.co.zw",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "AI Chat Assistant",
+      "Smart Task Suggestions",
+      "Focus Timer Sessions",
+      "Health Reminders",
+      "Productivity Analytics",
+      "Gamification & Streaks"
+    ]
+  }
+  </script>
+
   <style>
     #app-splash {
       position: fixed;
@@ -84,7 +140,6 @@
   <app-root></app-root>
 
   <script>
-    // Remove splash as soon as Angular renders app-root content
     const observer = new MutationObserver(() => {
       const root = document.querySelector('app-root');
       if (root && root.children.length > 0) {

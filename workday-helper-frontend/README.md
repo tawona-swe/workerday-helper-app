@@ -1,59 +1,77 @@
-# WorkdayHelperFrontend
+# Workday Helper
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.3.
+A productivity-focused Angular app that combines task management, smart reminders, focus sessions, and AI assistance to help you stay on top of your workday.
 
-## Development server
+Built with Angular 21 · Connects to a Spring Boot backend at `http://localhost:8080`
 
-To start a local development server, run:
+---
+
+## Features
+
+### Dashboard
+Overview of your day at a glance — pending and completed task counts, active reminders, completion rate, and a weekly task activity chart.
+
+### Tasks
+Full task management with create, edit, delete, and completion toggling. Each task supports a title, description, priority (LOW / MEDIUM / HIGH), and an optional due date. Tasks are split into pending and completed views with a high-priority counter.
+
+### Reminders
+Interval-based reminders that fire on a schedule while the app is open. Supports built-in types (Eye Break, Posture Check, Hydration, Stretch) and custom reminders. Triggers an in-app alert and a browser notification with an audio beep.
+
+### Focus Sessions
+Pomodoro-style focus timer. Start a session tied to a specific task, set a target duration, and track a live countdown. Keeps a summary of total sessions, total focus minutes, and average session length.
+
+### AI Assistant (Chat)
+Conversational AI assistant backed by the `/api/assistant` endpoint. Maintains full message history across sessions.
+
+**Natural language task creation** — the chat detects task intent automatically. Just type naturally and the assistant will parse and create the task for you, then confirm with a priority badge.
+
+Examples:
+- `"add a task to review the report by Friday"`
+- `"create a high priority task to call the client"`
+- `"remind me to submit the invoice by March 30"`
+
+Supports priority extraction (high / urgent / low) and due date parsing from phrases like `by Friday`, `on March 30`, `for next week`.
+
+### AI Suggestions
+AI-generated scheduling recommendations for your tasks. Provides:
+- **Daily suggestions** — prioritised task schedule with suggested start/end times, rationale, and AI advice per task
+- **Context suggestions** — context-aware recommendations based on your current workload
+
+### Analytics
+Productivity metrics pulled from your activity:
+- Daily and weekly productivity scores
+- Focus vs. distraction minutes
+- Peak performance time window
+
+### Gamification
+Points, streaks, and achievements to keep you motivated. Tracks your current streak, longest streak, total points, and unlocked achievements with timestamps.
+
+### Account & Auth
+JWT-based authentication with login, registration, and password reset. Protected routes via an auth guard. Token is attached automatically via an HTTP interceptor.
+
+---
+
+## Getting Started
+
+**Prerequisites:** Node.js, Angular CLI, and the backend running on port 8080.
 
 ```bash
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Navigate to `http://localhost:4200`.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## Build
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Output goes to the `dist/` directory.
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Tests
 
 ```bash
 ng test
 ```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

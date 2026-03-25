@@ -6,8 +6,9 @@ import { Reminder } from '../models/reminder.model';
 @Injectable({ providedIn: 'root' })
 export class ReminderService {
   private baseUrl = 'http://localhost:8080/api/reminders';
-  private timers: Map<number, ReturnType<typeof setInterval>> = new Map();
+  private timers: Map<number, ReturnType<typeof setTimeout>> = new Map();
   reminderTriggered$ = new Subject<Reminder>();
+  private initialized = false;
 
   constructor(private http: HttpClient, private zone: NgZone) {}
 
@@ -31,28 +32,54 @@ export class ReminderService {
     return this.http.patch<Reminder>(`${this.baseUrl}/${id}/trigger`, {});
   }
 
-  startTimers(reminders: Reminder[]): void {
-    this.stopAllTimers();
-    reminders.filter(r => r.active).forEach(r => this.startTimer(r));
+  /** Call once at app startup — schedules all active reminders respecting lastTriggered */
+  initTimers(): void {
+    if (this.initialized) return;
+    this.initialized = true;
+    this.getAll().subscribe(reminders => {
+      this.stopAllTimers();
+      reminders.filter(r => r.active).forEach(r => this.scheduleTimer(r));
+    });
   }
 
-  startTimer(reminder: Reminder): void {
+  /** Refresh timers after create/update/delete — resets only changed reminders */
+  refreshTimers(): void {
+    this.getAll().subscribe(reminders => {
+      this.stopAllTimers();
+      reminders.filter(r => r.active).forEach(r => this.scheduleTimer(r));
+    });
+  }
+
+  private scheduleTimer(reminder: Reminder): void {
     if (!reminder.id) return;
-    const ms = reminder.intervalMinutes * 60 * 1000;
-    const timer = setInterval(() => {
+    const intervalMs = reminder.intervalMinutes * 60 * 1000;
+
+    // Calculate how long until next fire, accounting for lastTriggered
+    let delayMs = intervalMs;
+    if (reminder.lastTriggered) {
+      const elapsed = Date.now() - new Date(reminder.lastTriggered).getTime();
+      delayMs = Math.max(0, intervalMs - elapsed);
+    }
+
+    const fire = () => {
       this.zone.run(() => this.reminderTriggered$.next(reminder));
       this.trigger(reminder.id!).subscribe();
-    }, ms);
-    this.timers.set(reminder.id, timer);
+      // Schedule next occurrence
+      const next = setTimeout(fire, intervalMs);
+      this.timers.set(reminder.id!, next);
+    };
+
+    const t = setTimeout(fire, delayMs);
+    this.timers.set(reminder.id, t);
   }
 
   stopTimer(id: number): void {
     const t = this.timers.get(id);
-    if (t) { clearInterval(t); this.timers.delete(id); }
+    if (t) { clearTimeout(t); this.timers.delete(id); }
   }
 
   stopAllTimers(): void {
-    this.timers.forEach(t => clearInterval(t));
+    this.timers.forEach(t => clearTimeout(t));
     this.timers.clear();
   }
 }

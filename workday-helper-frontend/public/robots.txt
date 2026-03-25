@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /tasks
+Disallow: /chat
+Disallow: /focus
+Disallow: /suggestions
+Disallow: /analytics
+Disallow: /gamification
+Disallow: /reminders
+Disallow: /account
+
+Sitemap: https://workdayhelper.tawonarwatida.co.zw/sitemap.xml
