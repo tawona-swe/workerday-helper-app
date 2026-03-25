@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthLayoutComponent } from './layouts/auth-layout';
 import { AppLayoutComponent } from './layouts/app-layout';
+import { LandingComponent } from './components/landing/landing';
 import { DashboardComponent } from './components/dashboard/dashboard';
 import { TasksComponent } from './components/tasks/tasks';
 import { RemindersComponent } from './components/reminders/reminders';
@@ -16,10 +17,10 @@ import { AnalyticsDashboardComponent } from './components/analytics/analytics';
 import { GamificationComponent } from './components/gamification/gamification';
 
 export const routes: Routes = [
-  // Root redirect
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  // Landing page
+  { path: '', component: LandingComponent, pathMatch: 'full' },
 
-  // Auth pages — wrapped in AuthLayoutComponent (no sidebar/topbar)
+  // Auth pages
   {
     path: '',
     component: AuthLayoutComponent,
@@ -30,7 +31,7 @@ export const routes: Routes = [
     ]
   },
 
-  // App shell — all protected pages live inside AppLayoutComponent
+  // App shell — all protected pages
   {
     path: '',
     component: AppLayoutComponent,

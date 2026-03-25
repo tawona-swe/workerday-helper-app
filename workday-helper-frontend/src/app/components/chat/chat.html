@@ -5,10 +5,15 @@
   <div class="flex-1 overflow-y-auto space-y-3 min-h-0">
     @for (msg of messages; track $index) {
       <div [class]="msg.role === 'user' ? 'flex justify-end' : 'flex justify-start'">
-        <div [class]="msg.role === 'user'
-          ? 'accent-bg text-white text-xs px-4 py-2 rounded-2xl max-w-xs'
-          : 'bg-white/70 text-gray-800 text-xs px-4 py-2 rounded-2xl max-w-xs'">
-          {{ msg.content }}
+        <div class="flex flex-col" [class]="msg.role === 'user' ? 'items-end' : 'items-start'">
+          <div [class]="msg.role === 'user'
+            ? 'accent-bg text-white text-xs px-4 py-2 rounded-2xl max-w-xs'
+            : 'bg-white/70 text-gray-800 text-xs px-4 py-2 rounded-2xl max-w-xs'">
+            {{ msg.content }}
+          </div>
+          @if (msg.createdAt) {
+            <p class="text-[10px] text-gray-400 mt-0.5 px-1">{{ formatTime(msg.createdAt) }}</p>
+          }
         </div>
       </div>
     }
@@ -29,7 +34,7 @@
         class="flex-1 text-xs rounded-2xl border border-black/10 bg-white/70 px-4 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-indigo-300">
       </textarea>
       <button (click)="send()"
-        class="accent-bg text-white text-xs font-bold px-4 py-2 rounded-2xl hover:opacity-90 transition-opacity self-end">
+        class="accent-bg text-white text-xs font-bold px-4 py-4 rounded-2xl hover:opacity-90 transition-opacity self-end">
         Send
       </button>
     </div>

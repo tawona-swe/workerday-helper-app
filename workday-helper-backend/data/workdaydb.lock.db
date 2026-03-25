@@ -1,6 +1,6 @@
 #FileLock
-#Tue Mar 24 15:18:15 CAT 2026
-server=192.168.1.39\:50662
+#Wed Mar 25 08:51:19 CAT 2026
+server=192.168.1.47\:61297
 hostName=tawonaqh
 method=file
-id=19d1ffef239df88afa449163e9dc7a8624c2bdf33d2
+id=19d23c30628a8df065350226a7c677c288fd73d569a

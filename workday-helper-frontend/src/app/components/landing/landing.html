@@ -1,0 +1,83 @@
+<!-- Landing Page -->
+<div class="min-h-screen flex flex-col" style="background: linear-gradient(135deg, #f0f4ff 0%, #faf5ff 50%, #f0fdf4 100%);">
+
+  <!-- Nav -->
+  <nav class="flex items-center justify-between px-8 py-5 max-w-6xl mx-auto w-full">
+    <img src="/images/full_logo.png" alt="WorkdayHelper" class="h-20 object-contain" />
+    <div class="flex items-center gap-3">
+      <a routerLink="/login"
+         class="text-sm font-semibold text-gray-600 hover:text-gray-900 px-4 py-2 rounded-xl hover:bg-white/60 transition-all">
+        Sign in
+      </a>
+      <a routerLink="/register"
+         class="text-sm font-bold text-white px-5 py-2 rounded-xl shadow-md hover:opacity-90 transition-all"
+         style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
+        Get started free
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <main class="flex-1 flex flex-col items-center justify-center text-center px-6 py-16 max-w-4xl mx-auto w-full">
+
+    <!-- Badge -->
+    <div class="inline-flex items-center gap-2 bg-white/80 border border-indigo-100 text-indigo-600 text-xs font-bold px-4 py-1.5 rounded-full mb-8 shadow-sm">
+      <span class="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-pulse"></span>
+      AI-Powered Productivity
+    </div>
+
+    <!-- Headline -->
+    <h1 class="text-5xl font-black text-gray-900 tracking-tight leading-tight mb-6">
+      Your workday,<br/>
+      <span style="background: linear-gradient(135deg, #6366f1, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+        intelligently managed
+      </span>
+    </h1>
+
+    <p class="text-lg text-gray-500 max-w-xl mb-10 leading-relaxed">
+      WorkdayHelper combines AI chat, smart task suggestions, focus sessions, and health reminders into one seamless productivity platform.
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex items-center gap-4 flex-wrap justify-center mb-16">
+      <a routerLink="/register"
+         class="text-base font-bold text-white px-8 py-3.5 rounded-2xl shadow-lg hover:opacity-90 hover:scale-105 transition-all"
+         style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
+        Start for free →
+      </a>
+      <a routerLink="/login"
+         class="text-base font-semibold text-gray-700 px-8 py-3.5 rounded-2xl bg-white/80 border border-gray-200 hover:bg-white hover:shadow-md transition-all">
+        Sign in
+      </a>
+    </div>
+
+    <!-- Feature cards -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-3xl">
+      <div class="bg-white/70 backdrop-blur rounded-2xl p-5 text-left border border-white/80 shadow-sm">
+        <div class="text-2xl mb-2">🤖</div>
+        <p class="text-sm font-bold text-gray-900 mb-1">AI Assistant</p>
+        <p class="text-xs text-gray-500">Chat with your personal productivity coach</p>
+      </div>
+      <div class="bg-white/70 backdrop-blur rounded-2xl p-5 text-left border border-white/80 shadow-sm">
+        <div class="text-2xl mb-2">🎯</div>
+        <p class="text-sm font-bold text-gray-900 mb-1">Smart Focus</p>
+        <p class="text-xs text-gray-500">Timed sessions with task-linked countdowns</p>
+      </div>
+      <div class="bg-white/70 backdrop-blur rounded-2xl p-5 text-left border border-white/80 shadow-sm">
+        <div class="text-2xl mb-2">💡</div>
+        <p class="text-sm font-bold text-gray-900 mb-1">AI Suggestions</p>
+        <p class="text-xs text-gray-500">Ranked tasks with how-to-tackle advice</p>
+      </div>
+      <div class="bg-white/70 backdrop-blur rounded-2xl p-5 text-left border border-white/80 shadow-sm">
+        <div class="text-2xl mb-2">🏆</div>
+        <p class="text-sm font-bold text-gray-900 mb-1">Gamification</p>
+        <p class="text-xs text-gray-500">Earn points and streaks as you work</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center py-6 text-xs text-gray-400">
+    © 2026 WorkdayHelper · Built for productive humans
+  </footer>
+</div>

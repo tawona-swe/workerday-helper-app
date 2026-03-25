@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 interface ChatMessage {
   role: 'user' | 'assistant';
   content: string;
-  timestamp?: string;
+  createdAt?: string;
 }
 
 @Component({
@@ -36,12 +36,18 @@ export class ChatComponent implements OnInit {
   send(): void {
     const text = this.inputText.trim();
     if (!text) return;
-    this.messages.push({ role: 'user', content: text });
+    this.messages.push({ role: 'user', content: text, createdAt: new Date().toISOString() });
     this.inputText = '';
     this.http.post<ChatMessage>('http://localhost:8080/api/assistant/message', { message: text }).subscribe({
-      next: reply => this.messages.push(reply),
-      error: () => this.messages.push({ role: 'assistant', content: 'Error getting response.' })
+      next: reply => this.messages.push({ ...reply, createdAt: reply.createdAt ?? new Date().toISOString() }),
+      error: () => this.messages.push({ role: 'assistant', content: 'Error getting response.', createdAt: new Date().toISOString() })
     });
+  }
+
+  formatTime(iso?: string): string {
+    if (!iso) return '';
+    const d = new Date(iso);
+    return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
 
   get charsRemaining(): number {

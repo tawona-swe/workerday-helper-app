@@ -4,6 +4,7 @@ import { AuthService } from './auth';
 @Injectable({ providedIn: 'root' })
 export class NotificationService {
   toastMessage = signal<string | null>(null);
+  onNotification: ((msg: string) => void) | null = null;
 
   private eventSource: EventSource | null = null;
   private clearTimer: ReturnType<typeof setTimeout> | null = null;
@@ -44,6 +45,7 @@ export class NotificationService {
 
   showToast(message: string): void {
     this.toastMessage.set(message);
+    if (this.onNotification) this.onNotification(message);
     if (this.clearTimer) clearTimeout(this.clearTimer);
     this.clearTimer = setTimeout(() => this.toastMessage.set(null), 6000);
   }
