@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "ng build --configuration production && aws s3 sync dist/workday-helper-frontend/browser s3://workday-helper-bucket --delete && aws cloudfront create-invalidation --distribution-id EGYI55KGTXFVR --paths \"/*\""
   },
   "private": true,
   "packageManager": "npm@11.11.0",

@@ -1,10 +1,10 @@
 <div class="max-w-6xl mx-auto">
 
   <!-- Top row -->
-  <div class="grid grid-cols-12 gap-4 mb-4">
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-4 mb-4">
 
     <!-- Hero dark card -->
-    <div class="col-span-4 bg-gray-900 rounded-2xl p-5 text-white flex flex-col justify-between min-h-44">
+    <div class="md:col-span-4 bg-gray-900 rounded-2xl p-5 text-white flex flex-col justify-between min-h-44">
       <div>
         <p class="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-3">Overall Information</p>
         <div class="flex items-end gap-5">
@@ -44,7 +44,7 @@
     </div>
 
     <!-- Weekly progress -->
-    <div class="col-span-5 glass-card rounded-2xl p-5">
+    <div class="md:col-span-5 glass-card rounded-2xl p-5">
       <div class="flex items-center justify-between mb-4">
         <p class="text-sm font-bold text-gray-800">Weekly Progress</p>
         <div class="flex items-center gap-3 text-xs text-gray-500 font-medium">
@@ -63,7 +63,7 @@
     </div>
 
     <!-- Month progress -->
-    <div class="col-span-3 glass-card rounded-2xl p-5 flex flex-col">
+    <div class="md:col-span-3 glass-card rounded-2xl p-5 flex flex-col">
       <p class="text-sm font-bold text-gray-800 mb-1">Month Progress</p>
       <p class="text-xs text-gray-500 font-medium mb-4">{{ completionRate }}% completed</p>
       <div class="space-y-3.5 flex-1">
@@ -85,10 +85,10 @@
   </div>
 
   <!-- Bottom row -->
-  <div class="grid grid-cols-12 gap-4">
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
 
     <!-- Month goals -->
-    <div class="col-span-3 glass-card rounded-2xl p-5">
+    <div class="md:col-span-3 glass-card rounded-2xl p-5">
       <div class="flex items-center justify-between mb-4">
         <p class="text-sm font-bold text-gray-800">Month Goals</p>
         <button class="w-6 h-6 rounded-lg accent-bg-soft flex items-center justify-center accent hover:opacity-80 transition-opacity">
@@ -115,7 +115,7 @@
     </div>
 
     <!-- Tasks in process -->
-    <div class="col-span-6 glass-card rounded-2xl p-5">
+    <div class="md:col-span-6 glass-card rounded-2xl p-5">
       <div class="flex items-center justify-between mb-4">
         <p class="text-sm font-bold text-gray-800">Tasks in Process <span class="accent font-bold">({{ pendingCount }})</span></p>
         <a routerLink="/tasks" class="text-xs accent font-semibold hover:opacity-70 transition-opacity">View all →</a>
@@ -148,7 +148,7 @@
     </div>
 
     <!-- Health alerts -->
-    <div class="col-span-3 glass-card rounded-2xl p-5">
+    <div class="md:col-span-3 glass-card rounded-2xl p-5">
       <div class="flex items-center justify-between mb-4">
         <p class="text-sm font-bold text-gray-800">Health Alerts</p>
         <a routerLink="/reminders" class="text-xs accent font-semibold hover:opacity-70 transition-opacity">Manage →</a>

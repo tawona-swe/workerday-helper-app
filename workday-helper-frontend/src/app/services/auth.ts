@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { AuthResponse, User } from '../models/user.model';
+import { environment } from '../../environments/environment';
 
-const API = 'http://localhost:8080/api/auth';
+const API = `${environment.apiUrl}/api/auth`;
 const TOKEN_KEY = 'wh_token';
 const USER_KEY = 'wh_user';
 

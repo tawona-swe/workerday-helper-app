@@ -32,8 +32,10 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
+                .requestMatchers(new AntPathRequestMatcher("/**", "OPTIONS")).permitAll()
                 .requestMatchers(
                     new AntPathRequestMatcher("/api/auth/**"),
+                    new AntPathRequestMatcher("/api/health/ping"),
                     new AntPathRequestMatcher("/api/notifications/stream"),
                     new AntPathRequestMatcher("/h2-console/**")
                 ).permitAll()

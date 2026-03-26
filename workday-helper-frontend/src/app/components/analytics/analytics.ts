@@ -22,6 +22,8 @@ interface TimeWindow {
   label?: string;
 }
 
+import { environment } from '../../../environments/environment';
+
 @Component({
   selector: 'app-analytics',
   standalone: true,
@@ -29,7 +31,7 @@ interface TimeWindow {
   templateUrl: './analytics.html'
 })
 export class AnalyticsDashboardComponent implements OnInit {
-  private readonly base = 'http://localhost:8080/api/analytics';
+  private readonly base = `${environment.apiUrl}/api/analytics`;
 
   daily: DailyAnalytics | null = null;
   weekly: WeeklyAnalytics | null = null;

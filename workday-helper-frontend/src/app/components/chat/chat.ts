@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 import { TaskService } from '../../services/task';
 import { Task } from '../../models/task.model';
 
@@ -33,7 +34,7 @@ export class ChatComponent implements OnInit {
   }
 
   loadHistory(): void {
-    this.http.get<ChatMessage[]>('http://localhost:8080/api/assistant/history').subscribe({
+    this.http.get<ChatMessage[]>(`${environment.apiUrl}/api/assistant/history`).subscribe({
       next: msgs => this.messages = msgs,
       error: () => {}
     });
@@ -53,7 +54,7 @@ export class ChatComponent implements OnInit {
   }
 
   private sendToAssistant(text: string): void {
-    this.http.post<ChatMessage>('http://localhost:8080/api/assistant/message', { message: text }).subscribe({
+    this.http.post<ChatMessage>(`${environment.apiUrl}/api/assistant/message`, { message: text }).subscribe({
       next: reply => this.messages.push({ ...reply, createdAt: reply.createdAt ?? new Date().toISOString() }),
       error: () => this.messages.push({ role: 'assistant', content: 'Error getting response.', createdAt: new Date().toISOString() })
     });

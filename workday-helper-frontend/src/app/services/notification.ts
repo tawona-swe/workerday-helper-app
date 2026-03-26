@@ -1,6 +1,8 @@
 import { Injectable, signal } from '@angular/core';
 import { AuthService } from './auth';
 
+import { environment } from '../../environments/environment';
+
 @Injectable({ providedIn: 'root' })
 export class NotificationService {
   toastMessage = signal<string | null>(null);
@@ -18,7 +20,7 @@ export class NotificationService {
     if (!token) return;
 
     this.eventSource = new EventSource(
-      `http://localhost:8080/api/notifications/stream?token=${encodeURIComponent(token)}`
+      `${environment.apiUrl}/api/notifications/stream?token=${encodeURIComponent(token)}`
     );
 
     const handler = (event: MessageEvent) => {

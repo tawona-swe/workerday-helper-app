@@ -47,4 +47,9 @@ public class HealthController {
         List<HealthEvent> events = healthMonitorService.getHealthEvents(resolveUser(principal), LocalDate.now());
         return ResponseEntity.ok(events);
     }
+
+    @GetMapping("/ping")
+    public ResponseEntity<?> ping() {
+        return ResponseEntity.ok(java.util.Map.of("status", "UP", "timestamp", java.time.Instant.now().toString()));
+    }
 }

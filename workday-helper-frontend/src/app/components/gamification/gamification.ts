@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 interface Achievement {
   id: number;
@@ -28,7 +29,7 @@ export class GamificationComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<GamificationProfile>('http://localhost:8080/api/gamification/profile').subscribe({
+    this.http.get<GamificationProfile>(`${environment.apiUrl}/api/gamification/profile`).subscribe({
       next: p => this.profile = p,
       error: () => {}
     });

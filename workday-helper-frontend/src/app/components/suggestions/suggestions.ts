@@ -20,6 +20,8 @@ interface ContextSuggestion {
   rationale: string;
 }
 
+import { environment } from '../../../environments/environment';
+
 @Component({
   selector: 'app-suggestions',
   standalone: true,
@@ -27,7 +29,7 @@ interface ContextSuggestion {
   templateUrl: './suggestions.html'
 })
 export class SuggestionsComponent implements OnInit {
-  private readonly base = 'http://localhost:8080/api/suggestions';
+  private readonly base = `${environment.apiUrl}/api/suggestions`;
 
   daily: TaskSuggestion[] = [];
   context: ContextSuggestion[] = [];

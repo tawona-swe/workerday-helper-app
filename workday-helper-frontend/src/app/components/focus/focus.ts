@@ -18,6 +18,8 @@ interface FocusSummary {
   averageSessionMinutes: number;
 }
 
+import { environment } from '../../../environments/environment';
+
 @Component({
   selector: 'app-focus',
   standalone: true,
@@ -25,7 +27,7 @@ interface FocusSummary {
   templateUrl: './focus.html'
 })
 export class FocusComponent implements OnInit, OnDestroy {
-  private readonly base = 'http://localhost:8080/api/focus';
+  private readonly base = `${environment.apiUrl}/api/focus`;
 
   activeSession: FocusSession | null = null;
   summary: FocusSummary | null = null;

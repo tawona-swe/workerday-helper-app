@@ -3,9 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { Reminder } from '../models/reminder.model';
 
+import { environment } from '../../environments/environment';
+
 @Injectable({ providedIn: 'root' })
 export class ReminderService {
-  private baseUrl = 'http://localhost:8080/api/reminders';
+  private baseUrl = `${environment.apiUrl}/api/reminders`;
   private timers: Map<number, ReturnType<typeof setTimeout>> = new Map();
   reminderTriggered$ = new Subject<Reminder>();
   private initialized = false;

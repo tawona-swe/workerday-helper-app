@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 export class LandingComponent {
   leftEyeStyle = '';
   rightEyeStyle = '';
+  menuOpen = false;
 
   @HostListener('document:mousemove', ['$event'])
   onMouseMove(e: MouseEvent): void {

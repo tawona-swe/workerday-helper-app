@@ -1,6 +1,6 @@
 import { Component, HostListener, ViewChild, ElementRef, OnInit, AfterViewChecked } from '@angular/core';
 import { Router, RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { LucideAngularModule, Eye, PersonStanding, Droplets, Target, Settings, User, LogOut } from 'lucide-angular';
@@ -9,13 +9,14 @@ import { NotificationService } from '../services/notification';
 import { TaskService } from '../services/task';
 import { ReminderService } from '../services/reminder';
 import { Task } from '../models/task.model';
+import { environment } from '../../environments/environment';
 
 interface ChatMsg { role: string; content: string; }
 interface NotifItem { message: string; time: string; }
 
 @Component({
   selector: 'app-layout',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, LucideAngularModule, CommonModule, FormsModule],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, LucideAngularModule, CommonModule, NgTemplateOutlet, FormsModule],
   templateUrl: './app-layout.html'
 })
 export class AppLayoutComponent implements OnInit, AfterViewChecked {
@@ -30,6 +31,7 @@ export class AppLayoutComponent implements OnInit, AfterViewChecked {
   dropdownOpen = false;
   dropdownTop = 0;
   dropdownRight = '16px';
+  mobileNavOpen = false;
 
   // Search
   searchOpen = false;
@@ -151,7 +153,7 @@ export class AppLayoutComponent implements OnInit, AfterViewChecked {
   toggleChat(): void {
     this.chatOpen = !this.chatOpen;
     if (this.chatOpen && this.chatMessages.length === 0) {
-      this.http.get<ChatMsg[]>('http://localhost:8080/api/assistant/history').subscribe({
+      this.http.get<ChatMsg[]>(`${environment.apiUrl}/api/assistant/history`).subscribe({
         next: msgs => { this.chatMessages = msgs; this.shouldScroll = true; },
         error: () => {}
       });
@@ -165,7 +167,7 @@ export class AppLayoutComponent implements OnInit, AfterViewChecked {
     this.chatInput = '';
     this.chatSending = true;
     this.shouldScroll = true;
-    this.http.post<ChatMsg>('http://localhost:8080/api/assistant/message', { message: text }).subscribe({
+    this.http.post<ChatMsg>(`${environment.apiUrl}/api/assistant/message`, { message: text }).subscribe({
       next: reply => {
         this.chatMessages.push(reply);
         this.chatSending = false;
