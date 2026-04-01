@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { AuthLayoutComponent } from './layouts/auth-layout';
 import { AppLayoutComponent } from './layouts/app-layout';
 import { LandingComponent } from './components/landing/landing';
+import { PrivacyComponent } from './components/privacy/privacy';
+import { TermsComponent } from './components/terms/terms';
 import { DashboardComponent } from './components/dashboard/dashboard';
 import { TasksComponent } from './components/tasks/tasks';
 import { RemindersComponent } from './components/reminders/reminders';
@@ -15,10 +17,15 @@ import { FocusComponent } from './components/focus/focus';
 import { SuggestionsComponent } from './components/suggestions/suggestions';
 import { AnalyticsDashboardComponent } from './components/analytics/analytics';
 import { GamificationComponent } from './components/gamification/gamification';
+import { CalendarComponent } from './components/calendar/calendar';
+import { PlannerComponent } from './components/planner/planner';
+import { ReportComponent } from './components/report/report';
 
 export const routes: Routes = [
   // Landing page
   { path: '', component: LandingComponent, pathMatch: 'full' },
+  { path: 'privacy', component: PrivacyComponent },
+  { path: 'terms', component: TermsComponent },
 
   // Auth pages
   {
@@ -46,6 +53,9 @@ export const routes: Routes = [
       { path: 'suggestions',  component: SuggestionsComponent },
       { path: 'analytics',    component: AnalyticsDashboardComponent },
       { path: 'gamification', component: GamificationComponent },
+      { path: 'calendar',     component: CalendarComponent },
+      { path: 'planner',      component: PlannerComponent },
+      { path: 'report',       component: ReportComponent },
     ]
   }
 ];

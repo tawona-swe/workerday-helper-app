@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { LucideAngularModule, Eye, PersonStanding, Droplets, Dumbbell, Bell, Pencil, Check, LucideIconData } from 'lucide-angular';
 import { TaskService } from '../../services/task';
 import { ReminderService } from '../../services/reminder';
+import { CalendarService, CalendarEvent } from '../../services/calendar';
 import { Task } from '../../models/task.model';
 import { Reminder } from '../../models/reminder.model';
 
@@ -17,6 +18,8 @@ export class DashboardComponent implements OnInit {
   tasks: Task[] = [];
   reminders: Reminder[] = [];
   analytics: any = {};
+  calendarEvents: CalendarEvent[] = [];
+  calendarConnected = false;
 
   readonly Eye = Eye;
   readonly PersonStanding = PersonStanding;
@@ -32,7 +35,7 @@ export class DashboardComponent implements OnInit {
 
   weekDays: { label: string; height: number }[] = [];
 
-  constructor(private taskService: TaskService, private reminderService: ReminderService) {}
+  constructor(private taskService: TaskService, private reminderService: ReminderService, private calendarService: CalendarService) {}
 
   ngOnInit(): void {
     this.taskService.getAll().subscribe(t => {
@@ -41,6 +44,12 @@ export class DashboardComponent implements OnInit {
     });
     this.reminderService.getAll().subscribe(r => this.reminders = r);
     this.taskService.getAnalytics().subscribe(a => this.analytics = a);
+    this.calendarService.getStatus().subscribe(s => {
+      this.calendarConnected = s.connected;
+      if (s.connected) {
+        this.calendarService.getEvents().subscribe(e => this.calendarEvents = e.slice(0, 5));
+      }
+    });
   }
 
   private buildWeekChart(tasks: Task[]): { label: string; height: number }[] {
@@ -76,5 +85,10 @@ export class DashboardComponent implements OnInit {
   get completionRate(): number {
     if (!this.tasks.length) return 0;
     return Math.round((this.completedCount / this.tasks.length) * 100);
+  }
+
+  formatEventTime(dateStr: string): string {
+    const d = new Date(dateStr);
+    return d.toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
   }
 }

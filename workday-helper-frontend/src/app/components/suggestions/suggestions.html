@@ -1,5 +1,13 @@
 <div class="glass-panel rounded-3xl p-6 space-y-6">
-  <h2 class="text-sm font-bold text-gray-900">Suggestions</h2>
+  <div class="flex items-center justify-between">
+    <h2 class="text-sm font-bold text-gray-900">Suggestions</h2>
+    @if (calendarConnected) {
+      <span class="text-xs text-blue-600 font-medium flex items-center gap-1">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        Calendar-aware
+      </span>
+    }
+  </div>
 
   @if (loading) {
     <p class="text-xs text-gray-400">Loading suggestions...</p>
@@ -13,14 +21,19 @@
       }
       <div class="space-y-3">
         @for (s of daily; track s.taskId) {
-          <div class="bg-white/70 rounded-2xl p-4 space-y-2">
+          <div class="rounded-2xl p-4 space-y-2" [class.bg-white/70]="!s.conflict" [class.bg-orange-50]="s.conflict" [class.border]="s.conflict" [class.border-orange-200]="s.conflict">
             <div class="flex items-center justify-between gap-2">
               <p class="text-sm font-bold text-gray-900 truncate">{{ s.title }}</p>
-              @if (s.priority) {
-                <span class="text-xs font-semibold px-2 py-0.5 rounded-full flex-shrink-0" [ngClass]="priorityColor(s.priority)">
-                  {{ s.priority }}
-                </span>
-              }
+              <div class="flex items-center gap-1.5 flex-shrink-0">
+                @if (s.conflict) {
+                  <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-orange-100 text-orange-600">⚠ Calendar conflict</span>
+                }
+                @if (s.priority) {
+                  <span class="text-xs font-semibold px-2 py-0.5 rounded-full" [ngClass]="priorityColor(s.priority)">
+                    {{ s.priority }}
+                  </span>
+                }
+              </div>
             </div>
             <p class="text-xs text-gray-500">🕐 {{ s.suggestedStartTime }} – {{ s.suggestedEndTime }}</p>
             <p class="text-xs text-gray-500 italic">{{ s.rationale }}</p>

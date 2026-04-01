@@ -1,6 +1,6 @@
 # Workday Helper
 
-An AI-powered productivity platform for managing your workday — tasks, reminders, focus sessions, health nudges, analytics, and an AI assistant, all in one place. Built with Angular on the frontend and Spring Boot on the backend, with JWT-based authentication so each user's data stays private.
+An AI-powered productivity platform for managing your workday — tasks, reminders, focus sessions, health nudges, Google Calendar integration, AI day planning, weekly reports, and an AI assistant, all in one place. Built with Angular on the frontend and Spring Boot on the backend, with JWT-based authentication so each user's data stays private.
 
 ## Live Deployment
 
@@ -9,6 +9,8 @@ An AI-powered productivity platform for managing your workday — tasks, reminde
 | Frontend | https://workerdayapp.tawonarwatida.co.zw                           |
 | Backend  | https://workday.tawonarwatida.co.zw                                |
 | Health   | https://workday.tawonarwatida.co.zw/api/health/ping                |
+| Privacy  | https://workerdayapp.tawonarwatida.co.zw/privacy                   |
+| Terms    | https://workerdayapp.tawonarwatida.co.zw/terms                     |
 
 ## Hosting Architecture (AWS)
 
@@ -34,12 +36,15 @@ User
 - Register and log in with a personal account
 - Create, update, and delete tasks with priorities and due dates
 - AI assistant chat — ask questions, create tasks by conversation
-- Smart task suggestions with AI-generated how-to-tackle advice
+- Smart task suggestions with AI-generated how-to-tackle advice (calendar-aware)
 - Focus sessions with countdown timer linked to tasks
 - Health reminders (eye breaks, hydration, posture, stretches)
 - Productivity analytics — daily and weekly scores, peak focus window
 - Gamification — points, streaks, and achievements
 - Real-time notifications via SSE
+- Google Calendar integration — view events on dashboard, sync tasks to calendar, conflict detection in suggestions
+- AI Day Planner — generates an optimal daily schedule from tasks and calendar events, with approve mechanism to update task due dates
+- Weekly AI Report — AI-generated summary of the week with productivity scores, task breakdown, what went well, and tips for next week
 
 ---
 
@@ -52,13 +57,12 @@ User
 | Database | H2 (file-based, persistent)                       |
 | Auth     | JWT (JJWT)                                        |
 | AI       | Groq API (llama-3.1-8b-instant)                   |
+| Calendar | Google Calendar API (OAuth 2.0)                   |
 | Hosting  | AWS S3 + CloudFront (frontend), EC2 + Nginx (API) |
 
 ---
 
 ## Prerequisites
-
-Make sure you have the following installed:
 
 - Java 17+
 - Maven 3.8+ (or use the included `mvnw` wrapper)
@@ -76,7 +80,22 @@ git clone https://github.com/tawona-swe/workerday-helper-app.git
 cd workerday-helper-app
 ```
 
-### 2. Backend
+### 2. Backend environment
+
+Create `workday-helper-backend/.env`:
+
+```env
+JWT_SECRET=your-256-bit-secret
+JWT_EXPIRATION_MS=86400000
+LLM_API_KEY=your-groq-api-key
+LLM_BASE_URL=https://api.groq.com/openai/v1
+LLM_MODEL=llama-3.1-8b-instant
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+GOOGLE_REDIRECT_URI=http://localhost:8080/api/calendar/callback
+```
+
+### 3. Run the backend
 
 ```bash
 cd workday-helper-backend
@@ -88,18 +107,9 @@ On Windows:
 mvnw.cmd spring-boot:run
 ```
 
-The API will start on `http://localhost:8080`.
+API starts on `http://localhost:8080`. H2 console available at `http://localhost:8080/h2-console`.
 
-The H2 database is file-based and stored in `workday-helper-backend/data/`. It's created automatically on first run.
-
-You can access the H2 console at `http://localhost:8080/h2-console` with:
-- JDBC URL: `jdbc:h2:file:./data/workdaydb`
-- Username: `sa`
-- Password: *(leave blank)*
-
-> Before deploying to production, change `app.jwt.secret` in `application.properties` to a strong, unique 256-bit secret.
-
-### 3. Frontend
+### 4. Run the frontend
 
 ```bash
 cd workday-helper-frontend
@@ -107,101 +117,83 @@ npm install
 ng serve
 ```
 
-The app will be available at `http://localhost:4200`.
+App available at `http://localhost:4200`.
 
 ---
 
 ## API Overview
 
-All endpoints under `/api/tasks` and `/api/reminders` require a `Bearer <token>` header.
+All endpoints except `/api/auth/**`, `/api/health/ping`, and `/api/calendar/callback` require a `Bearer <token>` header.
 
-| Method | Endpoint                          | Description              |
-|--------|-----------------------------------|--------------------------|
-| POST   | `/api/auth/register`              | Register a new user      |
-| POST   | `/api/auth/login`                 | Login and get JWT token  |
-| GET    | `/api/auth/me`                    | Get current user profile |
-| PUT    | `/api/auth/me`                    | Update name/password     |
-| GET    | `/api/tasks`                      | List all tasks           |
-| GET    | `/api/tasks/pending`              | List pending tasks       |
-| GET    | `/api/tasks/completed`            | List completed tasks     |
-| POST   | `/api/tasks`                      | Create a task            |
-| PUT    | `/api/tasks/{id}`                 | Update a task            |
-| DELETE | `/api/tasks/{id}`                 | Delete a task            |
-| GET    | `/api/tasks/analytics/completion-rate` | Task analytics      |
-| GET    | `/api/reminders`                  | List all reminders       |
-| GET    | `/api/reminders/active`           | List active reminders    |
-| POST   | `/api/reminders`                  | Create a reminder        |
-| PUT    | `/api/reminders/{id}`             | Update a reminder        |
-| PATCH  | `/api/reminders/{id}/trigger`     | Mark reminder triggered  |
-| DELETE | `/api/reminders/{id}`             | Delete a reminder        |
+| Method | Endpoint                               | Description                        |
+|--------|----------------------------------------|------------------------------------|
+| POST   | `/api/auth/register`                   | Register a new user                |
+| POST   | `/api/auth/login`                      | Login and get JWT token            |
+| GET    | `/api/auth/me`                         | Get current user profile           |
+| PUT    | `/api/auth/me`                         | Update name/password               |
+| GET    | `/api/tasks`                           | List all tasks                     |
+| POST   | `/api/tasks`                           | Create a task                      |
+| PUT    | `/api/tasks/{id}`                      | Update a task                      |
+| DELETE | `/api/tasks/{id}`                      | Delete a task                      |
+| GET    | `/api/reminders`                       | List all reminders                 |
+| POST   | `/api/reminders`                       | Create a reminder                  |
+| GET    | `/api/focus/active`                    | Get active focus session           |
+| POST   | `/api/focus/start`                     | Start a focus session              |
+| POST   | `/api/focus/end/{id}`                  | End a focus session                |
+| GET    | `/api/analytics/daily`                 | Daily analytics                    |
+| GET    | `/api/analytics/weekly`                | Weekly analytics                   |
+| GET    | `/api/suggestions/daily`               | AI daily task suggestions          |
+| GET    | `/api/suggestions/context`             | Context-aware suggestions          |
+| POST   | `/api/assistant/message`               | Send message to AI assistant       |
+| GET    | `/api/assistant/history`               | Get chat history                   |
+| GET    | `/api/calendar/auth-url`               | Get Google OAuth URL               |
+| GET    | `/api/calendar/callback`               | Google OAuth callback              |
+| GET    | `/api/calendar/events`                 | Get upcoming calendar events       |
+| POST   | `/api/calendar/sync-task/{id}`         | Sync task to Google Calendar       |
+| GET    | `/api/calendar/status`                 | Check calendar connection status   |
+| DELETE | `/api/calendar/disconnect`             | Disconnect Google Calendar         |
+| GET    | `/api/planner/plan`                    | Generate AI day plan               |
+| GET    | `/api/report/weekly`                   | Generate weekly AI report          |
+| GET    | `/api/health/ping`                     | Health check (public)              |
 
 ---
 
 ## Project Structure
 
 ```
-workday-helper-backend/       # Spring Boot API
+workday-helper-backend/
   src/main/java/com/workdayhelper/app/
-    controller/               # REST controllers
-    model/                    # JPA entities (User, Task, Reminder)
-    repository/               # Spring Data repositories
-    service/                  # Business logic
-    security/                 # JWT filter, utils, UserDetailsService
-    config/                   # Security and CORS config
+    controller/       # REST controllers (11 controllers)
+    model/            # JPA entities
+    repository/       # Spring Data repositories
+    service/          # Business logic + AI services
+    security/         # JWT filter, utils, UserDetailsService
+    config/           # Security, CORS, app config
+    dto/              # Data transfer objects
 
-workday-helper-frontend/      # Angular app
+workday-helper-frontend/
   src/app/
-    components/               # Auth, dashboard, tasks, reminders
-    services/                 # HTTP service layer
-    models/                   # TypeScript interfaces
-    auth/                     # Route guard and JWT interceptor
-    layouts/                  # App shell and auth layout
+    components/       # All page components
+      auth/           # Login, register, account
+      dashboard/      # Main dashboard with calendar widget
+      tasks/          # Task management
+      reminders/      # Health reminders
+      focus/          # Focus sessions
+      chat/           # AI assistant
+      suggestions/    # AI suggestions (calendar-aware)
+      analytics/      # Productivity analytics
+      gamification/   # Points, streaks, achievements
+      calendar/       # Google Calendar integration
+      planner/        # AI Day Planner
+      report/         # Weekly AI Report
+      landing/        # Public landing page
+      privacy/        # Privacy policy
+      terms/          # Terms of service
+    services/         # HTTP service layer
+    models/           # TypeScript interfaces
+    auth/             # Route guard + JWT interceptor
+    layouts/          # App shell and auth layout
 ```
-
-## Feature Details
-
-### Dashboard
-Overview of your day at a glance — pending and completed task counts, active reminders, completion rate, and a weekly task activity chart.
-
-### Tasks
-Full task management with create, edit, delete, and completion toggling. Each task supports a title, description, priority (LOW / MEDIUM / HIGH), and an optional due date. Tasks are split into pending and completed views with a high-priority counter.
-
-### Reminders
-Interval-based reminders that fire on a schedule while the app is open. Supports built-in types (Eye Break, Posture Check, Hydration, Stretch) and custom reminders. Triggers an in-app alert and a browser notification with an audio beep.
-
-### Focus Sessions
-Pomodoro-style focus timer. Start a session tied to a specific task, set a target duration, and track a live countdown. Keeps a summary of total sessions, total focus minutes, and average session length.
-
-### AI Assistant (Chat)
-Conversational AI assistant backed by the `/api/assistant` endpoint. Maintains full message history across sessions.
-
-**Natural language task creation** — the chat detects task intent automatically. Just type naturally and the assistant will parse and create the task for you, then confirm with a priority badge.
-
-Examples:
-- `"add a task to review the report by Friday"`
-- `"create a high priority task to call the client"`
-- `"remind me to submit the invoice by March 30"`
-
-Supports priority extraction (high / urgent / low) and due date parsing from phrases like `by Friday`, `on March 30`, `for next week`.
-
-### AI Suggestions
-AI-generated scheduling recommendations for your tasks. Provides:
-- **Daily suggestions** — prioritised task schedule with suggested start/end times, rationale, and AI advice per task
-- **Context suggestions** — context-aware recommendations based on your current workload
-
-### Analytics
-Productivity metrics pulled from your activity:
-- Daily and weekly productivity scores
-- Focus vs. distraction minutes
-- Peak performance time window
-
-### Gamification
-Points, streaks, and achievements to keep you motivated. Tracks your current streak, longest streak, total points, and unlocked achievements with timestamps.
-
-### Account & Auth
-JWT-based authentication with login, registration, and password reset. Protected routes via an auth guard. Token is attached automatically via an HTTP interceptor.
-
----
 
 ## Deploy (Frontend)
 
@@ -210,4 +202,4 @@ cd workday-helper-frontend
 npm run deploy
 ```
 
-Builds, uploads to S3, and invalidates CloudFront in one shot. Requires AWS CLI configured with appropriate permissions.
+Builds, uploads to S3, and invalidates CloudFront in one command. Requires AWS CLI configured with S3 and CloudFront permissions.

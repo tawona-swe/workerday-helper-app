@@ -31,4 +31,12 @@ public class User {
     private String role = "USER";
 
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(length = 2048)
+    private String googleAccessToken;
+
+    @Column(length = 2048)
+    private String googleRefreshToken;
+
+    private Boolean googleCalendarConnected = false;
 }
