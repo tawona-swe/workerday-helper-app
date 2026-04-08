@@ -1,30 +1,18 @@
 <!-- Landing Page -->
 <div class="relative min-h-screen flex flex-col overflow-hidden" style="background: linear-gradient(135deg, #f0f4ff 0%, #faf5ff 50%, #f0fdf4 100%);">
 
-  <!-- Grid Pattern — full page -->
+  <!-- Grid Pattern -->
   <div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(#6366f1 0.5px, transparent 0.5px), linear-gradient(90deg, #6366f1 0.5px, transparent 0.5px); background-size: 80px 80px; opacity: 0.04;"></div>
 
   <!-- Nav -->
   <nav class="relative px-4 md:px-8 py-4 md:py-5 max-w-6xl mx-auto w-full">
     <div class="flex items-center justify-between">
-      <img src="/images/full_logo.png" alt="WorkdayHelper" class="h-12 md:h-28 object-contain" />
-
-      <!-- Desktop buttons -->
+      <img src="/images/full_logo.png" alt="WorkdayHelper" class="h-12 md:h-20 object-contain" />
       <div class="hidden md:flex items-center gap-3">
-        <a routerLink="/login"
-           class="text-sm font-semibold text-gray-600 hover:text-gray-900 border border-indigo-100 px-4 py-2 rounded-xl hover:bg-white/60 transition-all">
-          Sign in
-        </a>
-        <a routerLink="/register"
-           class="text-sm font-bold text-white px-5 py-2 rounded-xl shadow-md hover:opacity-90 transition-all"
-           style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
-          Get started free
-        </a>
+        <a routerLink="/login" class="text-sm font-semibold text-gray-600 hover:text-gray-900 border border-indigo-100 px-4 py-2 rounded-xl hover:bg-white/60 transition-all">Sign in</a>
+        <a routerLink="/register" class="text-sm font-bold text-white px-5 py-2 rounded-xl shadow-md hover:opacity-90 transition-all" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">Get started free</a>
       </div>
-
-      <!-- Mobile hamburger -->
-      <button (click)="menuOpen = !menuOpen"
-              class="md:hidden w-9 h-9 rounded-xl bg-white/70 border border-indigo-100 flex items-center justify-center text-gray-700 shadow-sm">
+      <button (click)="menuOpen = !menuOpen" class="md:hidden w-9 h-9 rounded-xl bg-white/70 border border-indigo-100 flex items-center justify-center text-gray-700 shadow-sm">
         @if (menuOpen) {
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         } @else {
@@ -32,124 +20,177 @@
         }
       </button>
     </div>
-
-    <!-- Mobile dropdown menu -->
     @if (menuOpen) {
       <div class="md:hidden absolute left-4 right-4 top-full mt-2 bg-white/95 backdrop-blur rounded-2xl shadow-xl border border-indigo-100 p-4 flex flex-col gap-2 z-50">
-        <a routerLink="/login" (click)="menuOpen = false"
-           class="text-sm font-semibold text-gray-700 px-4 py-3 rounded-xl hover:bg-indigo-50 transition-all text-center">
-          Sign in
-        </a>
-        <a routerLink="/register" (click)="menuOpen = false"
-           class="text-sm font-bold text-white px-4 py-3 rounded-xl text-center shadow-md hover:opacity-90 transition-all"
-           style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
-          Get started free
-        </a>
+        <a routerLink="/login" (click)="menuOpen = false" class="text-sm font-semibold text-gray-700 px-4 py-3 rounded-xl hover:bg-indigo-50 transition-all text-center">Sign in</a>
+        <a routerLink="/register" (click)="menuOpen = false" class="text-sm font-bold text-white px-4 py-3 rounded-xl text-center shadow-md hover:opacity-90 transition-all" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">Get started free</a>
       </div>
     }
   </nav>
 
-  <!-- Hero -->
-  <main class="relative flex-1 flex flex-col items-center justify-center text-center px-6 py-16 max-w-4xl mx-auto w-full overflow-hidden">
+  <main class="relative flex-1 flex flex-col items-center text-center px-4 md:px-6 pb-16 max-w-5xl mx-auto w-full">
 
-    <!-- Badge -->
-    <div class="inline-flex items-center gap-2 bg-white/80 border border-indigo-100 text-indigo-600 text-xs font-bold px-4 py-1.5 rounded-full mb-8 shadow-sm">
-      <span class="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-pulse"></span>
-      AI-Powered Productivity
+    <!-- Hero -->
+    <div class="pt-10 md:pt-16 pb-12 md:pb-16">
+      <div class="inline-flex items-center gap-2 bg-white/80 border border-indigo-100 text-indigo-600 text-xs font-bold px-4 py-1.5 rounded-full mb-6 shadow-sm">
+        <span class="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-pulse"></span>
+        AI-Powered Productivity Platform
+      </div>
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-black text-gray-900 tracking-tight leading-tight mb-5">
+        Your workday,<br/>
+        <span style="background: linear-gradient(135deg, #6366f1, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">intelligently managed</span>
+      </h1>
+      <p class="text-base md:text-lg text-gray-500 max-w-2xl mx-auto mb-8 leading-relaxed">
+        WorkdayHelper combines AI chat, smart scheduling, Google Calendar sync, focus sessions, health reminders, and weekly AI reports into one seamless platform.
+      </p>
+      <div class="flex items-center gap-3 flex-wrap justify-center">
+        <a routerLink="/register" class="text-base font-bold text-white px-8 py-3.5 rounded-2xl shadow-lg hover:opacity-90 hover:scale-105 transition-all" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
+          Start for free →
+        </a>
+        <a routerLink="/login" class="text-base font-semibold text-gray-700 px-8 py-3.5 rounded-2xl bg-white/80 border border-gray-200 hover:bg-white hover:shadow-md transition-all">
+          Sign in
+        </a>
+      </div>
     </div>
 
-    <!-- Headline -->
-    <h1 class="text-3xl md:text-5xl font-black text-gray-900 tracking-tight leading-tight mb-6">
-      Your workday,<br/>
-      <span style="background: linear-gradient(135deg, #6366f1, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-        intelligently managed
-      </span>
-    </h1>
-
-    <p class="text-base md:text-lg text-gray-500 max-w-xl mb-10 leading-relaxed">
-      WorkdayHelper combines AI chat, smart task suggestions, focus sessions, and health reminders into one seamless productivity platform.
-    </p>
-
-    <!-- CTAs -->
-    <div class="flex items-center gap-4 flex-wrap justify-center mb-16">
-      <a routerLink="/register"
-         class="text-base font-bold text-white px-8 py-3.5 rounded-2xl shadow-lg hover:opacity-90 hover:scale-105 transition-all"
-         style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
-        Start for free →
-      </a>
-      <a routerLink="/login"
-         class="text-base font-semibold text-gray-700 px-8 py-3.5 rounded-2xl bg-white/80 border border-gray-200 hover:bg-white hover:shadow-md transition-all">
-        Sign in
-      </a>
-    </div>
-
-    <!-- Feature cards -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 w-full max-w-3xl mb-12">
-      <div class="bg-white/70 backdrop-blur rounded-2xl p-5 text-left border border-white/80 shadow-sm hover:shadow-md hover:border-indigo-200 hover:bg-white hover:-translate-y-1 transition-all duration-200 cursor-default">
+    <!-- Core feature cards -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 w-full mb-6">
+      <div class="bg-white/70 backdrop-blur rounded-2xl p-4 md:p-5 text-left border border-white/80 shadow-sm hover:shadow-md hover:border-indigo-200 hover:bg-white hover:-translate-y-1 transition-all duration-200">
         <div class="text-2xl mb-2">🤖</div>
         <p class="text-sm font-bold text-gray-900 mb-1">AI Assistant</p>
-        <p class="text-xs text-gray-500">Chat with your personal productivity coach</p>
+        <p class="text-xs text-gray-500">Chat to create tasks, get advice, and manage your day</p>
       </div>
-      <div class="bg-white/70 backdrop-blur rounded-2xl p-5 text-left border border-white/80 shadow-sm hover:shadow-md hover:border-indigo-200 hover:bg-white hover:-translate-y-1 transition-all duration-200 cursor-default">
-        <div class="text-2xl mb-2">🎯</div>
-        <p class="text-sm font-bold text-gray-900 mb-1">Smart Focus</p>
-        <p class="text-xs text-gray-500">Timed sessions with task-linked countdowns</p>
+      <div class="bg-white/70 backdrop-blur rounded-2xl p-4 md:p-5 text-left border border-white/80 shadow-sm hover:shadow-md hover:border-indigo-200 hover:bg-white hover:-translate-y-1 transition-all duration-200">
+        <div class="text-2xl mb-2">⚡</div>
+        <p class="text-sm font-bold text-gray-900 mb-1">AI Day Planner</p>
+        <p class="text-xs text-gray-500">One click builds your optimal daily schedule</p>
       </div>
-      <div class="bg-white/70 backdrop-blur rounded-2xl p-5 text-left border border-white/80 shadow-sm hover:shadow-md hover:border-indigo-200 hover:bg-white hover:-translate-y-1 transition-all duration-200 cursor-default">
-        <div class="text-2xl mb-2">💡</div>
-        <p class="text-sm font-bold text-gray-900 mb-1">AI Suggestions</p>
-        <p class="text-xs text-gray-500">Ranked tasks with how-to-tackle advice</p>
+      <div class="bg-white/70 backdrop-blur rounded-2xl p-4 md:p-5 text-left border border-white/80 shadow-sm hover:shadow-md hover:border-indigo-200 hover:bg-white hover:-translate-y-1 transition-all duration-200">
+        <div class="text-2xl mb-2">📅</div>
+        <p class="text-sm font-bold text-gray-900 mb-1">Google Calendar</p>
+        <p class="text-xs text-gray-500">Sync tasks, view events, detect scheduling conflicts</p>
       </div>
-      <div class="bg-white/70 backdrop-blur rounded-2xl p-5 text-left border border-white/80 shadow-sm hover:shadow-md hover:border-indigo-200 hover:bg-white hover:-translate-y-1 transition-all duration-200 cursor-default">
-        <div class="text-2xl mb-2">🏆</div>
-        <p class="text-sm font-bold text-gray-900 mb-1">Gamification</p>
-        <p class="text-xs text-gray-500">Earn points and streaks as you work</p>
+      <div class="bg-white/70 backdrop-blur rounded-2xl p-4 md:p-5 text-left border border-white/80 shadow-sm hover:shadow-md hover:border-indigo-200 hover:bg-white hover:-translate-y-1 transition-all duration-200">
+        <div class="text-2xl mb-2">📈</div>
+        <p class="text-sm font-bold text-gray-900 mb-1">Weekly Report</p>
+        <p class="text-xs text-gray-500">AI-generated insights on your productivity every week</p>
       </div>
     </div>
 
-    <!-- Spotlight: Chat to Task -->
-    <div class="w-full max-w-3xl bg-gray-900 rounded-3xl p-6 md:p-8 text-left mb-6">
-      <div class="flex items-center gap-2 mb-4">
+    <!-- AI Day Planner spotlight -->
+    <div class="w-full bg-gray-900 rounded-3xl p-6 md:p-8 text-left mb-6">
+      <div class="flex items-center gap-2 mb-3">
         <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
-        <p class="text-xs font-bold text-indigo-400 uppercase tracking-widest">New — Chat to Task</p>
+        <p class="text-xs font-bold text-indigo-400 uppercase tracking-widest">AI Day Planner</p>
       </div>
-      <h2 class="text-xl md:text-2xl font-black text-white mb-2 leading-snug">Just say it. Your assistant handles the rest.</h2>
-      <p class="text-sm text-gray-400 mb-6 leading-relaxed">No forms, no clicks. Type naturally and the AI creates the task for you — with priority and due date extracted automatically.</p>
-      <div class="space-y-2">
-        <div class="flex items-start gap-3">
-          <div class="flex-shrink-0 accent-bg rounded-xl px-3 py-2 text-white text-xs font-medium max-w-xs">"Add a high priority task to review the report by Friday"</div>
+      <h2 class="text-xl md:text-2xl font-black text-white mb-2">Your perfect day, planned in seconds.</h2>
+      <p class="text-sm text-gray-400 mb-6 leading-relaxed max-w-xl">AI analyses your tasks, priorities, and Google Calendar events to build a conflict-free schedule. Review it, approve it, and your tasks are automatically updated.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div class="bg-red-900/30 border border-red-800/40 rounded-2xl p-4">
+          <p class="text-xs text-red-400 font-bold mb-1">🔴 09:00 – 10:30</p>
+          <p class="text-sm text-white font-semibold">Review Q2 report</p>
+          <p class="text-xs text-gray-400 mt-1">💡 Start with the hardest task while energy is high</p>
         </div>
-        <div class="flex items-start gap-3 justify-end">
-          <div class="flex-shrink-0 bg-gray-800 rounded-xl px-3 py-2 text-gray-200 text-xs max-w-xs">✓ Task created — <span class="text-red-400 font-semibold">HIGH</span> priority · due Friday</div>
+        <div class="bg-emerald-900/30 border border-emerald-800/40 rounded-2xl p-4">
+          <p class="text-xs text-emerald-400 font-bold mb-1">☕ 10:30 – 10:45</p>
+          <p class="text-sm text-white font-semibold">Break</p>
+          <p class="text-xs text-gray-400 mt-1">💡 Step away from the screen for 15 minutes</p>
         </div>
-        <div class="flex items-start gap-3">
-          <div class="flex-shrink-0 accent-bg rounded-xl px-3 py-2 text-white text-xs font-medium max-w-xs">"Remind me to call the client tomorrow morning"</div>
-        </div>
-        <div class="flex items-start gap-3 justify-end">
-          <div class="flex-shrink-0 bg-gray-800 rounded-xl px-3 py-2 text-gray-200 text-xs max-w-xs">✓ Task created — <span class="text-yellow-400 font-semibold">MEDIUM</span> priority · due tomorrow</div>
+        <div class="bg-yellow-900/30 border border-yellow-800/40 rounded-2xl p-4">
+          <p class="text-xs text-yellow-400 font-bold mb-1">🟡 10:45 – 11:45</p>
+          <p class="text-sm text-white font-semibold">Client follow-up emails</p>
+          <p class="text-xs text-gray-400 mt-1">💡 Batch all emails in one focused block</p>
         </div>
       </div>
     </div>
 
-    <!-- Extra feature pills -->
-    <div class="flex flex-wrap justify-center gap-2 w-full max-w-3xl">
-      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm">💧 Health reminders</span>
-      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm">📊 Productivity analytics</span>
-      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm">🔔 Real-time notifications</span>
-      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm">🧍 Posture & eye break alerts</span>
-      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm">⏱️ Focus session timer</span>
-      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm">🏅 Streaks & achievements</span>
+    <!-- Two column: Chat to Task + Weekly Report -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full mb-6">
+
+      <!-- Chat to Task -->
+      <div class="bg-gray-900 rounded-3xl p-6 text-left">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+          <p class="text-xs font-bold text-indigo-400 uppercase tracking-widest">Chat to Task</p>
+        </div>
+        <h3 class="text-lg font-black text-white mb-2">Just say it.</h3>
+        <p class="text-xs text-gray-400 mb-4">Type naturally — AI extracts priority, due date, and creates the task instantly.</p>
+        <div class="space-y-2">
+          <div class="flex justify-start">
+            <div class="accent-bg rounded-2xl rounded-bl-sm px-3 py-2 text-white text-xs max-w-[85%]">"Add high priority task to review the report by Friday"</div>
+          </div>
+          <div class="flex justify-end">
+            <div class="bg-gray-800 rounded-2xl rounded-br-sm px-3 py-2 text-gray-200 text-xs max-w-[85%]">✓ Task created · <span class="text-red-400 font-bold">HIGH</span> · due Friday</div>
+          </div>
+          <div class="flex justify-start">
+            <div class="accent-bg rounded-2xl rounded-bl-sm px-3 py-2 text-white text-xs max-w-[85%]">"Remind me to call the client tomorrow morning"</div>
+          </div>
+          <div class="flex justify-end">
+            <div class="bg-gray-800 rounded-2xl rounded-br-sm px-3 py-2 text-gray-200 text-xs max-w-[85%]">✓ Task created · <span class="text-yellow-400 font-bold">MEDIUM</span> · due tomorrow</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Weekly Report -->
+      <div class="bg-white/70 backdrop-blur border border-white/80 rounded-3xl p-6 text-left shadow-sm">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-2 h-2 rounded-full bg-green-400"></span>
+          <p class="text-xs font-bold text-green-600 uppercase tracking-widest">Weekly AI Report</p>
+        </div>
+        <h3 class="text-lg font-black text-gray-900 mb-2">Know exactly how your week went.</h3>
+        <p class="text-xs text-gray-500 mb-4">Every week, AI analyses your productivity data and delivers honest, actionable insights.</p>
+        <div class="space-y-3">
+          <div class="bg-indigo-50 border border-indigo-100 rounded-xl p-3">
+            <p class="text-xs font-bold text-gray-700 mb-1">🤖 AI Summary</p>
+            <p class="text-xs text-gray-600 italic">"Strong week — you completed 8 of 10 tasks and logged 4.5 hours of focus time. Tuesday was your most productive day."</p>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-center">
+            <div class="bg-white rounded-xl p-2 border border-gray-100">
+              <p class="text-lg font-bold text-gray-900">8</p>
+              <p class="text-xs text-gray-400">Done</p>
+            </div>
+            <div class="bg-white rounded-xl p-2 border border-gray-100">
+              <p class="text-lg font-bold accent">74</p>
+              <p class="text-xs text-gray-400">Avg score</p>
+            </div>
+            <div class="bg-white rounded-xl p-2 border border-gray-100">
+              <p class="text-lg font-bold text-gray-900">4.5h</p>
+              <p class="text-xs text-gray-400">Focus</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- Feature pills -->
+    <div class="flex flex-wrap justify-center gap-2 w-full mb-10">
+      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm">🎯 Smart Focus Sessions</span>
+      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm">💡 Calendar-aware Suggestions</span>
+      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm">💧 Health Reminders</span>
+      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm">📊 Productivity Analytics</span>
+      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm">🏆 Streaks & Achievements</span>
+      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm">🔔 Real-time Notifications</span>
+      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm">🧍 Posture & Eye Break Alerts</span>
+    </div>
+
+    <!-- Final CTA -->
+    <div class="w-full rounded-3xl p-8 md:p-10 text-center" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
+      <h2 class="text-2xl md:text-3xl font-black text-white mb-3">Ready to work smarter?</h2>
+      <p class="text-sm text-indigo-200 mb-6 max-w-md mx-auto">Join WorkdayHelper and let AI handle the planning so you can focus on what matters.</p>
+      <a routerLink="/register" class="inline-block bg-white text-indigo-600 font-bold text-sm px-8 py-3.5 rounded-2xl hover:shadow-lg hover:scale-105 transition-all">
+        Get started free →
+      </a>
+    </div>
+
   </main>
 
   <!-- Footer -->
-  <footer class="text-center py-6 text-xs text-gray-400">
-    © 2026 WorkdayHelper · Built for productive humans · <a href="https://tawonarwatida.co.zw">By Tawona Rwatida</a> · <a routerLink="/privacy" class="hover:text-gray-600 transition-colors">Privacy Policy</a> · <a routerLink="/terms" class="hover:text-gray-600 transition-colors">Terms of Service</a>
+  <footer class="text-center py-6 text-xs text-gray-400 px-4">
+    © 2026 WorkdayHelper · Built for productive humans · <a href="https://tawonarwatida.co.zw" class="hover:text-gray-600 transition-colors">By Tawona Rwatida</a> · <a routerLink="/privacy" class="hover:text-gray-600 transition-colors">Privacy Policy</a> · <a routerLink="/terms" class="hover:text-gray-600 transition-colors">Terms of Service</a>
   </footer>
 
   <!-- Smiley FAB -->
-  <div class="fixed bottom-6 right-6 z-50 select-none cursor-default"
-       style="filter: drop-shadow(0 8px 24px rgba(99,102,241,0.35));">
+  <div class="fixed bottom-6 right-6 z-50 select-none cursor-default" style="filter: drop-shadow(0 8px 24px rgba(99,102,241,0.35));">
     <svg width="64" height="64" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="40" cy="40" r="38" fill="url(#faceGrad2)" stroke="white" stroke-width="2.5"/>
       <circle id="left-eye" cx="27" cy="33" r="9" fill="white" opacity="0.95"/>

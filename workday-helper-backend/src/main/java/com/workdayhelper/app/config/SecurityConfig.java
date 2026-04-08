@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .requestMatchers(
                     new AntPathRequestMatcher("/api/auth/**"),
                     new AntPathRequestMatcher("/api/health/ping"),
+                    new AntPathRequestMatcher("/api/admin/**"),
                     new AntPathRequestMatcher("/api/calendar/callback"),
                     new AntPathRequestMatcher("/api/notifications/stream"),
                     new AntPathRequestMatcher("/h2-console/**")

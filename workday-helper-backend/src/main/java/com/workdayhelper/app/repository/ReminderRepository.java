@@ -11,4 +11,5 @@ public interface ReminderRepository extends JpaRepository<Reminder, Long> {
     List<Reminder> findByUser(User user);
     List<Reminder> findByUserAndActive(User user, boolean active);
     Optional<Reminder> findByIdAndUser(Long id, User user);
+    long countByActive(boolean active);
 }
