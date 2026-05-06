@@ -8,6 +8,7 @@
       </button>
       <img src="/images/logo.png" alt="WorkdayHelper" class="w-7 h-7 object-contain rounded-lg" />
       <span class="font-bold text-gray-900 text-xs">WorkdayHelper</span>
+      <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-indigo-100 text-indigo-600 border border-indigo-200">BETA</span>
     </div>
     <div class="flex items-center gap-2">
       <div class="relative notif-panel">
@@ -67,7 +68,10 @@
     <!-- Desktop Top bar -->
     <header class="hidden md:flex glass-panel rounded-3xl px-6 py-3.5 items-center justify-between flex-shrink-0 overflow-visible">
       <div>
-        <h1 class="text-sm font-bold text-gray-900">Hi, {{ firstName() }}! 👋</h1>
+        <div class="flex items-center gap-2">
+          <h1 class="text-sm font-bold text-gray-900">Hi, {{ firstName() }}! 👋</h1>
+          <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-indigo-100 text-indigo-600 border border-indigo-200">BETA</span>
+        </div>
         <p class="text-xs text-gray-500 font-medium">{{ todayLabel }}</p>
       </div>
       <div class="flex items-center gap-2">
