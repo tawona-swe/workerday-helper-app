@@ -59,22 +59,22 @@
     <!-- Core feature cards -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3 w-full mb-6">
       <div class="bg-white/70 backdrop-blur rounded-2xl p-4 md:p-5 text-left border border-white/80 shadow-sm hover:shadow-md hover:border-indigo-200 hover:bg-white hover:-translate-y-1 transition-all duration-200">
-        <div class="text-2xl mb-2">🤖</div>
+        <div class="mb-2"><lucide-icon [img]="Bot" [size]="22" class="text-indigo-500"></lucide-icon></div>
         <p class="text-sm font-bold text-gray-900 mb-1">AI Assistant</p>
         <p class="text-xs text-gray-500">Chat to create tasks, get advice, and manage your day</p>
       </div>
       <div class="bg-white/70 backdrop-blur rounded-2xl p-4 md:p-5 text-left border border-white/80 shadow-sm hover:shadow-md hover:border-indigo-200 hover:bg-white hover:-translate-y-1 transition-all duration-200">
-        <div class="text-2xl mb-2">⚡</div>
+        <div class="mb-2"><lucide-icon [img]="Zap" [size]="22" class="text-indigo-500"></lucide-icon></div>
         <p class="text-sm font-bold text-gray-900 mb-1">AI Day Planner</p>
         <p class="text-xs text-gray-500">One click builds your optimal daily schedule</p>
       </div>
       <div class="bg-white/70 backdrop-blur rounded-2xl p-4 md:p-5 text-left border border-white/80 shadow-sm hover:shadow-md hover:border-indigo-200 hover:bg-white hover:-translate-y-1 transition-all duration-200">
-        <div class="text-2xl mb-2">📅</div>
+        <div class="mb-2"><lucide-icon [img]="Calendar" [size]="22" class="text-indigo-500"></lucide-icon></div>
         <p class="text-sm font-bold text-gray-900 mb-1">Google Calendar</p>
         <p class="text-xs text-gray-500">Sync tasks, view events, detect scheduling conflicts</p>
       </div>
       <div class="bg-white/70 backdrop-blur rounded-2xl p-4 md:p-5 text-left border border-white/80 shadow-sm hover:shadow-md hover:border-indigo-200 hover:bg-white hover:-translate-y-1 transition-all duration-200">
-        <div class="text-2xl mb-2">📈</div>
+        <div class="mb-2"><lucide-icon [img]="TrendingUp" [size]="22" class="text-indigo-500"></lucide-icon></div>
         <p class="text-sm font-bold text-gray-900 mb-1">Weekly Report</p>
         <p class="text-xs text-gray-500">AI-generated insights on your productivity every week</p>
       </div>
@@ -90,19 +90,19 @@
       <p class="text-sm text-gray-400 mb-6 leading-relaxed max-w-xl">AI analyses your tasks, priorities, and Google Calendar events to build a conflict-free schedule. Review it, approve it, and your tasks are automatically updated.</p>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div class="bg-red-900/30 border border-red-800/40 rounded-2xl p-4">
-          <p class="text-xs text-red-400 font-bold mb-1">🔴 09:00 – 10:30</p>
+          <p class="text-xs text-red-400 font-bold mb-1 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-red-400"></span> 09:00 – 10:30</p>
           <p class="text-sm text-white font-semibold">Review Q2 report</p>
-          <p class="text-xs text-gray-400 mt-1">💡 Start with the hardest task while energy is high</p>
+          <p class="text-xs text-gray-400 mt-1 flex items-center gap-1"><lucide-icon [img]="Lightbulb" [size]="12" class="text-indigo-400"></lucide-icon> Start with the hardest task while energy is high</p>
         </div>
         <div class="bg-emerald-900/30 border border-emerald-800/40 rounded-2xl p-4">
-          <p class="text-xs text-emerald-400 font-bold mb-1">☕ 10:30 – 10:45</p>
+          <p class="text-xs text-emerald-400 font-bold mb-1 flex items-center gap-1"><lucide-icon [img]="Coffee" [size]="12" class="text-emerald-400"></lucide-icon> 10:30 – 10:45</p>
           <p class="text-sm text-white font-semibold">Break</p>
-          <p class="text-xs text-gray-400 mt-1">💡 Step away from the screen for 15 minutes</p>
+          <p class="text-xs text-gray-400 mt-1 flex items-center gap-1"><lucide-icon [img]="Lightbulb" [size]="12" class="text-indigo-400"></lucide-icon> Step away from the screen for 15 minutes</p>
         </div>
         <div class="bg-yellow-900/30 border border-yellow-800/40 rounded-2xl p-4">
-          <p class="text-xs text-yellow-400 font-bold mb-1">🟡 10:45 – 11:45</p>
+          <p class="text-xs text-yellow-400 font-bold mb-1 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-yellow-400"></span> 10:45 – 11:45</p>
           <p class="text-sm text-white font-semibold">Client follow-up emails</p>
-          <p class="text-xs text-gray-400 mt-1">💡 Batch all emails in one focused block</p>
+          <p class="text-xs text-gray-400 mt-1 flex items-center gap-1"><lucide-icon [img]="Lightbulb" [size]="12" class="text-indigo-400"></lucide-icon> Batch all emails in one focused block</p>
         </div>
       </div>
     </div>
@@ -144,7 +144,7 @@
         <p class="text-xs text-gray-500 mb-4">Every week, AI analyses your productivity data and delivers honest, actionable insights.</p>
         <div class="space-y-3">
           <div class="bg-indigo-50 border border-indigo-100 rounded-xl p-3">
-            <p class="text-xs font-bold text-gray-700 mb-1">🤖 AI Summary</p>
+            <p class="text-xs font-bold text-gray-700 mb-1 flex items-center gap-1"><lucide-icon [img]="Bot" [size]="14" class="text-indigo-500"></lucide-icon> AI Summary</p>
             <p class="text-xs text-gray-600 italic">"Strong week — you completed 8 of 10 tasks and logged 4.5 hours of focus time. Tuesday was your most productive day."</p>
           </div>
           <div class="grid grid-cols-3 gap-2 text-center">
@@ -167,13 +167,13 @@
 
     <!-- Feature pills -->
     <div class="flex flex-wrap justify-center gap-2 w-full mb-10">
-      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm">🎯 Smart Focus Sessions</span>
-      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm">💡 Calendar-aware Suggestions</span>
-      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm">💧 Health Reminders</span>
-      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm">📊 Productivity Analytics</span>
-      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm">🏆 Streaks & Achievements</span>
-      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm">🔔 Real-time Notifications</span>
-      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm">🧍 Posture & Eye Break Alerts</span>
+      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm inline-flex items-center gap-1"><lucide-icon [img]="Target" [size]="14"></lucide-icon> Smart Focus Sessions</span>
+      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm inline-flex items-center gap-1"><lucide-icon [img]="Lightbulb" [size]="14"></lucide-icon> Calendar-aware Suggestions</span>
+      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm inline-flex items-center gap-1"><lucide-icon [img]="Droplets" [size]="14"></lucide-icon> Health Reminders</span>
+      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm inline-flex items-center gap-1"><lucide-icon [img]="BarChart3" [size]="14"></lucide-icon> Productivity Analytics</span>
+      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm inline-flex items-center gap-1"><lucide-icon [img]="Trophy" [size]="14"></lucide-icon> Streaks & Achievements</span>
+      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm inline-flex items-center gap-1"><lucide-icon [img]="Bell" [size]="14"></lucide-icon> Real-time Notifications</span>
+      <span class="bg-white/70 border border-white/80 text-gray-600 text-xs font-semibold px-4 py-2 rounded-full shadow-sm inline-flex items-center gap-1"><lucide-icon [img]="PersonStanding" [size]="14"></lucide-icon> Posture & Eye Break Alerts</span>
     </div>
 
     <!-- Final CTA -->

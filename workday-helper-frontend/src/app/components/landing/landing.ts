@@ -1,10 +1,11 @@
 import { Component, HostListener } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { LucideAngularModule, Bot, Zap, Calendar, TrendingUp, Lightbulb, Coffee, Target, Droplets, Trophy, Bell, PersonStanding, BarChart3 } from 'lucide-angular';
 
 @Component({
   selector: 'app-landing',
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, LucideAngularModule],
   templateUrl: './landing.html'
 })
 export class LandingComponent {
