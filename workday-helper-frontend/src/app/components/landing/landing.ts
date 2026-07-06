@@ -9,6 +9,19 @@ import { LucideAngularModule, Bot, Zap, Calendar, TrendingUp, Lightbulb, Coffee,
   templateUrl: './landing.html'
 })
 export class LandingComponent {
+  readonly Bot = Bot;
+  readonly Zap = Zap;
+  readonly Calendar = Calendar;
+  readonly TrendingUp = TrendingUp;
+  readonly Lightbulb = Lightbulb;
+  readonly Coffee = Coffee;
+  readonly Target = Target;
+  readonly Droplets = Droplets;
+  readonly Trophy = Trophy;
+  readonly Bell = Bell;
+  readonly PersonStanding = PersonStanding;
+  readonly BarChart3 = BarChart3;
+
   leftEyeStyle = '';
   rightEyeStyle = '';
   menuOpen = false;
