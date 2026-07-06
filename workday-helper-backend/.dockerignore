@@ -1,0 +1,10 @@
+target/
+data/
+.env
+.git/
+.gitattributes
+.gitignore
+.mvn/wrapper/maven-wrapper.jar
+.vscode/
+*.md
+HELP.md
