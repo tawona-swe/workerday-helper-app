@@ -7,6 +7,11 @@ WORKDIR /app
 COPY mvnw pom.xml ./
 COPY .mvn .mvn
 
+# Fix mvnw: ensure LF line endings and execute permission (Windows Git can corrupt these)
+RUN apk add --no-cache dos2unix && \
+    dos2unix mvnw && \
+    chmod +x mvnw
+
 # Download dependencies (separate from source for better caching)
 RUN ./mvnw dependency:go-offline -B
 
@@ -27,4 +32,6 @@ COPY --from=builder /app/target/*.jar app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Render provides the port via $PORT env var; Spring Boot uses SERVER_PORT
+# Map PORT -> server.port as a JVM argument
+ENTRYPOINT ["sh", "-c", "java -Dserver.port=${PORT:-8080} -jar app.jar"]
