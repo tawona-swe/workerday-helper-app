@@ -14,7 +14,8 @@ services:
     env_file:
       - .env
     environment:
-      # Override H2 URL to use the container volume path (already defaults to ./data/workdaydb)
+      # Pin H2 path to the Docker volume mount so it's consistent across rebuilds
+      DB_PATH: /app/data/workdaydb
       # These are fallbacks in case .env is missing some values
       JWT_SECRET: ${JWT_SECRET}
       JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS:-86400000}
