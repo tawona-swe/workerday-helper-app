@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { TaskService } from '../../services/task';
 import { Task } from '../../models/task.model';
+import { MarkdownPipe } from '../../pipes/markdown.pipe';
 
 interface ChatMessage {
   role: 'user' | 'assistant';
@@ -16,7 +17,7 @@ interface ChatMessage {
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MarkdownPipe],
   templateUrl: './chat.html'
 })
 export class ChatComponent implements OnInit {

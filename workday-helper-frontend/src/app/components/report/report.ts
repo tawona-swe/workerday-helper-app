@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { MarkdownPipe } from '../../pipes/markdown.pipe';
 import { environment } from '../../../environments/environment';
 
 interface DayScore { day: string; score: number; focusMinutes: number; }
@@ -15,7 +16,7 @@ interface WeeklyReport {
 
 @Component({
   selector: 'app-report',
-  imports: [CommonModule],
+  imports: [CommonModule, MarkdownPipe],
   templateUrl: './report.html'
 })
 export class ReportComponent implements OnInit {

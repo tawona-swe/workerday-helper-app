@@ -9,7 +9,7 @@
           <div [class]="msg.role === 'user'
             ? 'accent-bg text-white text-xs px-4 py-2 rounded-2xl max-w-xs'
             : 'bg-white/70 text-gray-800 text-xs px-4 py-2 rounded-2xl max-w-xs'">
-            {{ msg.content }}
+            <div [innerHTML]="msg.content | markdown" class="prose prose-xs max-w-none [&_p]:m-0 [&_ul]:m-0 [&_ol]:m-0 [&_li>p]:m-0 leading-relaxed"></div>
           </div>
           @if (msg.taskCreated) {
             <div class="mt-1 flex items-center gap-1.5 bg-green-50 border border-green-200 text-green-700 text-[10px] px-3 py-1 rounded-xl">

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { MarkdownPipe } from '../../pipes/markdown.pipe';
 import { CalendarService, CalendarEvent } from '../../services/calendar';
 
 interface TaskSuggestion {
@@ -27,7 +28,7 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-suggestions',
   standalone: true,
-  imports: [CommonModule, NgClass],
+  imports: [CommonModule, NgClass, MarkdownPipe],
   templateUrl: './suggestions.html'
 })
 export class SuggestionsComponent implements OnInit {
